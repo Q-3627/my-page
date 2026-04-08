@@ -1,0 +1,2560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPSS 统计分析操作指南</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAF9F7;
+  --bg-card: #FFFFFF;
+  --bg-sidebar: #1A1A2E;
+  --bg-sidebar-hover: #25254a;
+  --bg-sidebar-active: #33336a;
+  --text: #2D2D2D;
+  --text-secondary: #6B6B6B;
+  --text-sidebar: #C8C8D4;
+  --text-sidebar-active: #FFFFFF;
+  --accent: #4A6FA5;
+  --accent-light: #E8EFF8;
+  --accent-dark: #3A5A8A;
+  --border: #E5E3DF;
+  --tag-desc: #E8F5E9;
+  --tag-desc-text: #2E7D32;
+  --tag-compare: #FFF3E0;
+  --tag-compare-text: #E65100;
+  --tag-anova: #E3F2FD;
+  --tag-anova-text: #1565C0;
+  --tag-corr: #F3E5F5;
+  --tag-corr-text: #7B1FA2;
+  --tag-reg: #FBE9E7;
+  --tag-reg-text: #BF360C;
+  --tag-nonparam: #E0F2F1;
+  --tag-nonparam-text: #00695C;
+  --tag-reliability: #FFF9C4;
+  --tag-reliability-text: #F57F17;
+  --tag-medmod: #FCE4EC;
+  --tag-medmod-text: #AD1457;
+  --tag-multivar: #E8EAF6;
+  --tag-multivar-text: #283593;
+  --tag-survival: #EFEBE9;
+  --tag-survival-text: #4E342E;
+  --tag-cluster: #E0F7FA;
+  --tag-cluster-text: #006064;
+  --tag-effect: #F1F8E9;
+  --tag-effect-text: #33691E;
+  --code-bg: #F5F3EF;
+  --step-line: #D4D0CA;
+  --warning-bg: #FFF8E1;
+  --warning-border: #FFB300;
+  --tip-bg: #E8F5E9;
+  --tip-border: #4CAF50;
+  --output-bg: #F0F4F8;
+  --output-border: #90A4AE;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 8px;
+  --sidebar-width: 280px;
+}
+
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--bg-sidebar);
+  overflow-y: auto;
+  z-index: 100;
+  transition: transform 0.3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.15) transparent;
+}
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+.sidebar-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  position: sticky;
+  top: 0;
+  background: var(--bg-sidebar);
+  z-index: 1;
+}
+
+.sidebar-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-header p {
+  font-size: 12px;
+  color: var(--text-sidebar);
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+.sidebar-search {
+  padding: 12px 16px;
+  position: sticky;
+  top: 72px;
+  background: var(--bg-sidebar);
+  z-index: 1;
+}
+
+.sidebar-search input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 13px;
+  font-family: 'Noto Sans SC', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.sidebar-search input::placeholder { color: rgba(255,255,255,0.35); }
+.sidebar-search input:focus { border-color: var(--accent); }
+
+.nav-group { padding: 8px 0; }
+
+.nav-group-title {
+  padding: 8px 20px 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: rgba(255,255,255,0.35);
+}
+
+.nav-item {
+  display: block;
+  padding: 7px 20px 7px 28px;
+  font-size: 13.5px;
+  color: var(--text-sidebar);
+  cursor: pointer;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background: var(--bg-sidebar-hover);
+  color: #fff;
+}
+
+.nav-item.active {
+  background: var(--bg-sidebar-active);
+  color: var(--text-sidebar-active);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+
+.nav-item.hidden { display: none; }
+
+/* Main content */
+.main {
+  margin-left: var(--sidebar-width);
+  padding: 40px 48px 80px;
+  max-width: 900px;
+}
+
+/* Mobile menu */
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--bg-sidebar);
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu-btn svg { stroke: #fff; }
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 90;
+}
+
+/* Sections */
+.section {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Content cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 18px 0 8px;
+  color: var(--accent-dark);
+}
+
+.card p, .card li {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.card ul, .card ol {
+  padding-left: 20px;
+  margin: 8px 0;
+}
+
+.card li { margin-bottom: 4px; }
+
+/* Steps */
+.steps { margin: 16px 0; }
+
+.step {
+  position: relative;
+  padding: 0 0 20px 36px;
+  border-left: 2px solid var(--step-line);
+  margin-left: 11px;
+}
+
+.step:last-child { border-left-color: transparent; padding-bottom: 0; }
+
+.step-number {
+  position: absolute;
+  left: -12px;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-title {
+  font-weight: 600;
+  font-size: 14.5px;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.step-content {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.menu-path {
+  display: inline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  background: var(--code-bg);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--accent-dark);
+  border: 1px solid var(--border);
+  word-break: break-all;
+}
+
+/* Boxes */
+.box {
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin: 12px 0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.box-warning {
+  background: var(--warning-bg);
+  border-left: 3px solid var(--warning-border);
+}
+
+.box-tip {
+  background: var(--tip-bg);
+  border-left: 3px solid var(--tip-border);
+}
+
+.box-output {
+  background: var(--output-bg);
+  border-left: 3px solid var(--output-border);
+}
+
+.box-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.box-warning .box-title { color: #E65100; }
+.box-tip .box-title { color: #2E7D32; }
+.box-output .box-title { color: #37474F; }
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  margin: 12px 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+th {
+  background: var(--accent-light);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--accent-dark);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+td {
+  padding: 9px 14px;
+  border-top: 1px solid var(--border);
+  vertical-align: top;
+}
+
+tr:hover td { background: rgba(74, 111, 165, 0.03); }
+
+/* Tags */
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* Welcome section */
+.welcome-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.welcome-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+}
+
+.welcome-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.welcome-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.welcome-card p {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.welcome-card .card-count {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+/* Collapsible */
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 12px 0;
+  user-select: none;
+}
+
+.collapsible-header h3 {
+  margin-bottom: 0;
+}
+
+.collapsible-arrow {
+  transition: transform 0.2s;
+  color: var(--text-secondary);
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.collapsible-header.open .collapsible-arrow { transform: rotate(180deg); }
+
+.collapsible-body {
+  display: none;
+  padding-bottom: 8px;
+}
+
+.collapsible-body.open { display: block; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .mobile-menu-btn { display: flex; }
+  .overlay.open { display: block; }
+  .main {
+    margin-left: 0;
+    padding: 60px 20px 80px;
+  }
+  .welcome-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="菜单">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+  </svg>
+</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h1>SPSS Guide</h1>
+    <p>心理学统计分析操作指南</p>
+  </div>
+  <div class="sidebar-search">
+    <input type="text" id="searchInput" placeholder="搜索统计方法..." oninput="filterNav(this.value)">
+  </div>
+  <div id="navContent">
+    <div class="nav-group">
+      <div class="nav-item active" data-section="welcome" onclick="showSection('welcome')">首页</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">描述统计与数据准备</div>
+      <div class="nav-item" data-section="freq" onclick="showSection('freq')">频率分析</div>
+      <div class="nav-item" data-section="descriptives" onclick="showSection('descriptives')">描述统计量</div>
+      <div class="nav-item" data-section="data-setup" onclick="showSection('data-setup')">数据录入与变量设置</div>
+      <div class="nav-item" data-section="missing" onclick="showSection('missing')">缺失值处理</div>
+      <div class="nav-item" data-section="transform" onclick="showSection('transform')">数据转换</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">均值比较</div>
+      <div class="nav-item" data-section="one-sample-t" onclick="showSection('one-sample-t')">单样本 t 检验</div>
+      <div class="nav-item" data-section="independent-t" onclick="showSection('independent-t')">独立样本 t 检验</div>
+      <div class="nav-item" data-section="paired-t" onclick="showSection('paired-t')">配对样本 t 检验</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">方差分析</div>
+      <div class="nav-item" data-section="one-way-anova" onclick="showSection('one-way-anova')">单因素 ANOVA</div>
+      <div class="nav-item" data-section="two-way-anova" onclick="showSection('two-way-anova')">双因素 ANOVA</div>
+      <div class="nav-item" data-section="repeated-anova" onclick="showSection('repeated-anova')">重复测量 ANOVA</div>
+      <div class="nav-item" data-section="mixed-anova" onclick="showSection('mixed-anova')">混合设计 ANOVA</div>
+      <div class="nav-item" data-section="ancova" onclick="showSection('ancova')">协方差分析 ANCOVA</div>
+      <div class="nav-item" data-section="manova" onclick="showSection('manova')">多元方差分析 MANOVA</div>
+      <div class="nav-item" data-section="posthoc" onclick="showSection('posthoc')">事后比较 Post Hoc</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">相关分析</div>
+      <div class="nav-item" data-section="pearson" onclick="showSection('pearson')">Pearson 相关</div>
+      <div class="nav-item" data-section="spearman" onclick="showSection('spearman')">Spearman 相关</div>
+      <div class="nav-item" data-section="partial-corr" onclick="showSection('partial-corr')">偏相关分析</div>
+      <div class="nav-item" data-section="point-biserial" onclick="showSection('point-biserial')">点二列相关</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">回归分析</div>
+      <div class="nav-item" data-section="simple-reg" onclick="showSection('simple-reg')">简单线性回归</div>
+      <div class="nav-item" data-section="multiple-reg" onclick="showSection('multiple-reg')">多元线性回归</div>
+      <div class="nav-item" data-section="stepwise-reg" onclick="showSection('stepwise-reg')">逐步回归</div>
+      <div class="nav-item" data-section="hierarchical-reg" onclick="showSection('hierarchical-reg')">层次回归</div>
+      <div class="nav-item" data-section="logistic-reg" onclick="showSection('logistic-reg')">Logistic 回归</div>
+      <div class="nav-item" data-section="ordinal-reg" onclick="showSection('ordinal-reg')">有序 Logistic 回归</div>
+      <div class="nav-item" data-section="multinomial-reg" onclick="showSection('multinomial-reg')">多项 Logistic 回归</div>
+      <div class="nav-item" data-section="poisson-reg" onclick="showSection('poisson-reg')">Poisson 回归</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">非参数检验</div>
+      <div class="nav-item" data-section="mann-whitney" onclick="showSection('mann-whitney')">Mann-Whitney U</div>
+      <div class="nav-item" data-section="wilcoxon" onclick="showSection('wilcoxon')">Wilcoxon 符号秩</div>
+      <div class="nav-item" data-section="kruskal-wallis" onclick="showSection('kruskal-wallis')">Kruskal-Wallis</div>
+      <div class="nav-item" data-section="friedman" onclick="showSection('friedman')">Friedman 检验</div>
+      <div class="nav-item" data-section="chi-square" onclick="showSection('chi-square')">卡方检验</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">信效度分析</div>
+      <div class="nav-item" data-section="cronbach" onclick="showSection('cronbach')">Cronbach's α 信度</div>
+      <div class="nav-item" data-section="split-half" onclick="showSection('split-half')">折半信度</div>
+      <div class="nav-item" data-section="icc" onclick="showSection('icc')">组内相关系数 ICC</div>
+      <div class="nav-item" data-section="efa" onclick="showSection('efa')">探索性因子分析 EFA</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">中介与调节</div>
+      <div class="nav-item" data-section="process-intro" onclick="showSection('process-intro')">PROCESS 插件介绍</div>
+      <div class="nav-item" data-section="moderation" onclick="showSection('moderation')">调节效应 Model 1</div>
+      <div class="nav-item" data-section="mediation" onclick="showSection('mediation')">中介效应 Model 4</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">多元统计</div>
+      <div class="nav-item" data-section="discriminant" onclick="showSection('discriminant')">判别分析</div>
+      <div class="nav-item" data-section="cluster" onclick="showSection('cluster')">聚类分析</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">生存分析</div>
+      <div class="nav-item" data-section="kaplan-meier" onclick="showSection('kaplan-meier')">Kaplan-Meier</div>
+      <div class="nav-item" data-section="cox-reg" onclick="showSection('cox-reg')">Cox 回归</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">效应量与检验力</div>
+      <div class="nav-item" data-section="effect-size" onclick="showSection('effect-size')">效应量计算</div>
+      <div class="nav-item" data-section="power" onclick="showSection('power')">统计检验力</div>
+    </div>
+  </div>
+</nav>
+
+<main class="main" id="mainContent">
+
+<!-- ==================== WELCOME ==================== -->
+<div class="section active" id="sec-welcome">
+  <h2 class="section-title">SPSS 统计分析操作指南</h2>
+  <p class="section-subtitle">心理学研究常用统计方法的完整操作步骤、原理说明与输出解读</p>
+  <p style="margin-bottom:24px;font-size:14.5px;">选择左侧导航中的统计方法，查看详细的操作步骤。每个方法包含：适用场景、前提假设、逐步操作、输出解读和常见问题。</p>
+  <div class="welcome-grid">
+    <div class="welcome-card" onclick="showSection('data-setup')"><h4>📋 数据准备</h4><p>变量设置、缺失值、数据转换</p><div class="card-count">5 个主题</div></div>
+    <div class="welcome-card" onclick="showSection('one-sample-t')"><h4>📊 均值比较</h4><p>t 检验系列</p><div class="card-count">3 个主题</div></div>
+    <div class="welcome-card" onclick="showSection('one-way-anova')"><h4>📈 方差分析</h4><p>ANOVA 全系列</p><div class="card-count">7 个主题</div></div>
+    <div class="welcome-card" onclick="showSection('pearson')"><h4>🔗 相关分析</h4><p>多种相关方法</p><div class="card-count">4 个主题</div></div>
+    <div class="welcome-card" onclick="showSection('simple-reg')"><h4>📉 回归分析</h4><p>线性与 Logistic 回归</p><div class="card-count">8 个主题</div></div>
+    <div class="welcome-card" onclick="showSection('mann-whitney')"><h4>🔄 非参数检验</h4><p>不满足正态性时的替代</p><div class="card-count">5 个主题</div></div>
+    <div class="welcome-card" onclick="showSection('cronbach')"><h4>✅ 信效度</h4><p>量表质量评估</p><div class="card-count">4 个主题</div></div>
+    <div class="welcome-card" onclick="showSection('process-intro')"><h4>🔀 中介与调节</h4><p>PROCESS 宏</p><div class="card-count">3 个主题</div></div>
+    <div class="welcome-card" onclick="showSection('discriminant')"><h4>🧩 多元统计</h4><p>判别与聚类</p><div class="card-count">2 个主题</div></div>
+    <div class="welcome-card" onclick="showSection('kaplan-meier')"><h4>⏱ 生存分析</h4><p>事件时间数据</p><div class="card-count">2 个主题</div></div>
+    <div class="welcome-card" onclick="showSection('effect-size')"><h4>📏 效应量与检验力</h4><p>实际显著性</p><div class="card-count">2 个主题</div></div>
+  </div>
+</div>
+
+<!-- ==================== DATA SETUP ==================== -->
+<div class="section" id="sec-data-setup">
+  <h2 class="section-title">数据录入与变量设置</h2>
+  <p class="section-subtitle">正确设置变量是所有分析的基础，错误的变量属性会导致分析结果完全错误</p>
+
+  <div class="card">
+    <h3>什么时候需要关注变量设置</h3>
+    <p>每次在SPSS中新建数据文件或导入外部数据（Excel、CSV）时，都必须检查变量属性。SPSS不会自动判断你的变量是分类变量还是连续变量，默认设置经常是错的。</p>
+  </div>
+
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">切换到变量视图</div>
+        <div class="step-content">打开SPSS数据文件后，点击左下角的<span class="menu-path">变量视图</span>选项卡（英文版为 Variable View）。这里显示的是每个变量的属性设置，每一行代表一个变量。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量名称（Name）</div>
+        <div class="step-content">在「名称」列输入变量名。规则：不能以数字开头、不能含空格和特殊字符、长度不超过64字符。建议使用有意义的英文缩写，如 age、gender、score_pre、score_post。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置变量类型（Type）</div>
+        <div class="step-content">点击「类型」列的单元格，再点右侧出现的按钮。常用类型：<strong>数值型（Numeric）</strong>用于所有数字数据；<strong>字符串（String）</strong>用于文字数据。心理学数据绝大多数情况用数值型即可，即使是分类变量（如性别），也建议用数字编码（1=男, 2=女）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置变量标签（Label）</div>
+        <div class="step-content">在「标签」列输入变量的完整描述，如「被试年龄」「前测焦虑得分」。这个标签会显示在输出结果中，让结果更易读。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">设置值标签（Values）</div>
+        <div class="step-content">对分类变量，点击「值」列的单元格，弹出对话框后逐一添加编码对应关系。例如：值=1，标签=「男」；值=2，标签=「女」。点击「添加」保存每一对。这一步对分类变量至关重要，否则输出结果中只能看到数字，不知道代表什么。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-title">设置测量水平（Measure）</div>
+        <div class="step-content">这是最关键的一步。在「度量」列选择：<br>
+          <strong>标度/度量（Scale）</strong>：连续变量，如年龄、得分、反应时<br>
+          <strong>有序（Ordinal）</strong>：有顺序的分类变量，如教育程度（小学 &lt; 初中 &lt; 高中 &lt; 大学）<br>
+          <strong>名义（Nominal）</strong>：无顺序的分类变量，如性别、实验条件<br>
+          <br>错误设置会导致SPSS在图表和某些分析中产生错误结果。</div>
+      </div>
+    </div>
+    <div class="box box-warning">
+      <div class="box-title">⚠️ 常见错误</div>
+      从Excel导入数据后，SPSS可能把所有变量都设为「标度」。务必手动检查每个分类变量的测量水平，将性别、组别等改为「名义」。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FREQUENCY ==================== -->
+<div class="section" id="sec-freq">
+  <h2 class="section-title">频率分析</h2>
+  <p class="section-subtitle">查看变量的分布情况，是数据分析的第一步</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>当你需要了解数据的基本分布：每个值出现了多少次、有无异常值、数据是否大致正态分布。对分类变量查看各类别的频次和百分比，对连续变量查看分布形态。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开频率对话框</div>
+        <div class="step-content">菜单栏选择 <span class="menu-path">分析 → 描述统计 → 频率</span>（Analyze → Descriptive Statistics → Frequencies）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">选择变量</div>
+        <div class="step-content">将需要分析的变量从左侧列表移到右侧「变量」框中。可以同时选多个变量。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置统计量（可选）</div>
+        <div class="step-content">点击<span class="menu-path">统计</span>按钮，可以勾选均值、中位数、众数、标准差、偏度、峰度等。对于需要检查正态性的变量，勾选「偏度」和「峰度」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置图表（可选）</div>
+        <div class="step-content">点击<span class="menu-path">图表</span>按钮。对分类变量选「条形图」；对连续变量选「直方图」并勾选「叠加正态曲线」，可以直观判断是否接近正态分布。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定运行</div>
+        <div class="step-content">结果将显示在输出窗口中。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 频率表（Frequency Table）</div>
+      <strong>频率（Frequency）</strong>：该值出现的次数。<br>
+      <strong>百分比（Percent）</strong>：占全部数据的百分比。<br>
+      <strong>有效百分比（Valid Percent）</strong>：排除缺失值后的百分比，通常报告这个值。<br>
+      <strong>累积百分比（Cumulative Percent）</strong>：从最小值到当前值的累积百分比。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 统计量表（Statistics）</div>
+      如果你在第3步勾选了统计量，会出现一个汇总表。关注：<br>
+      <strong>偏度（Skewness）</strong>：接近0表示对称分布，正值表示右偏（长尾在右），负值表示左偏。绝对值 &gt; 2 通常认为偏态严重。<br>
+      <strong>峰度（Kurtosis）</strong>：接近0表示接近正态分布的峰度。绝对值 &gt; 7 通常认为峰度异常。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== DESCRIPTIVES ==================== -->
+<div class="section" id="sec-descriptives">
+  <h2 class="section-title">描述统计量</h2>
+  <p class="section-subtitle">快速获取连续变量的集中趋势和离散程度</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>当你需要报告均值、标准差、最小值、最大值等描述性指标时使用。与频率分析的区别在于，描述统计更侧重于汇总数值型变量的统计指标，而频率分析侧重于查看分布。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开描述统计对话框</div>
+        <div class="step-content"><span class="menu-path">分析 → 描述统计 → 描述</span>（Analyze → Descriptive Statistics → Descriptives）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">选择变量</div>
+        <div class="step-content">将连续变量移入右侧框中。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">点击<span class="menu-path">选项</span>，勾选你需要的统计量。默认只有均值、标准差、最小值、最大值。如需额外指标可勾选偏度、峰度、标准误等。勾选「将标准化值另存为变量」可以自动生成Z分数。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">输出一个描述性统计量表。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 描述性统计表</div>
+      <strong>N</strong>：有效样本量。<br>
+      <strong>Minimum / Maximum</strong>：最小值和最大值，用于检查是否有异常值（如年龄出现 -5 或 999）。<br>
+      <strong>Mean</strong>：均值，集中趋势的指标。<br>
+      <strong>Std. Deviation</strong>：标准差，衡量数据分散程度。值越大表示个体差异越大。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 使用建议</div>
+      如果需要按组（如性别、实验条件）分别报告描述统计，使用 <span class="menu-path">分析 → 描述统计 → 探索</span>，在「因子列表」中放入分组变量，可以得到分组的描述统计和正态性检验。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MISSING VALUES ==================== -->
+<div class="section" id="sec-missing">
+  <h2 class="section-title">缺失值处理</h2>
+  <p class="section-subtitle">缺失数据是心理学研究中无法避免的问题，处理方式直接影响结果可靠性</p>
+  <div class="card">
+    <h3>常见缺失值处理方法</h3>
+    <div class="table-wrap"><table>
+      <tr><th>方法</th><th>操作路径</th><th>适用情况</th><th>注意事项</th></tr>
+      <tr><td>列表删除（Listwise）</td><td>多数分析默认选项</td><td>缺失比例小（&lt;5%），缺失完全随机</td><td>样本量会减小</td></tr>
+      <tr><td>成对删除（Pairwise）</td><td>相关分析中可选</td><td>想最大程度利用数据</td><td>不同分析的N不一致</td></tr>
+      <tr><td>均值替代</td><td>转换 → 替换缺失值</td><td>临时补救</td><td>会低估标准差，不推荐发表用</td></tr>
+      <tr><td>多重插补（MI）</td><td>分析 → 多重插补</td><td>缺失比例较大，严谨研究</td><td>目前推荐的方法</td></tr>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>操作步骤：多重插补</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">分析缺失模式</div>
+        <div class="step-content"><span class="menu-path">分析 → 多重插补 → 分析模式</span>。将所有可能含缺失的变量放入分析变量框，点击「模式」选项卡，勾选显示模式图。这一步帮你了解哪些变量有缺失、缺失的比例和模式。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">执行插补</div>
+        <div class="step-content"><span class="menu-path">分析 → 多重插补 → 插补缺失数据值</span>。将需要插补的变量放入，设置插补次数（通常5-20次，缺失比例越高次数越多）。方法选「自动」即可。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">使用插补后的数据</div>
+        <div class="step-content">插补完成后，数据文件中会新增一个 Imputation_ 变量，标记每条数据属于第几次插补。你可以在数据视图下方看到多个插补数据集。后续分析时SPSS会自动合并多个插补数据集的结果。</div>
+      </div>
+    </div>
+    <div class="box box-warning">
+      <div class="box-title">⚠️ 重要前提</div>
+      多重插补假设数据是「随机缺失（MAR）」，即缺失与否可以被其他已观测变量解释。如果缺失是非随机的（如抑郁程度高的人更容易不填量表），则任何方法都难以完全修正偏差。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== DATA TRANSFORM ==================== -->
+<div class="section" id="sec-transform">
+  <h2 class="section-title">数据转换</h2>
+  <p class="section-subtitle">反向计分、中心化、计算总分等常见操作</p>
+  <div class="card">
+    <h3>反向计分</h3>
+    <p>问卷中常有反向题（如「我觉得自己毫无价值」在自尊量表中），需要反转分数后再计算总分。</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开计算变量</div>
+        <div class="step-content"><span class="menu-path">转换 → 计算变量</span>（Transform → Compute Variable）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置目标变量和公式</div>
+        <div class="step-content">「目标变量」输入新变量名，如 item3_r（r表示reversed）。「数值表达式」输入公式，如5分量表的反向计分：<span class="menu-path">(最大分数 + 1) - 原变量名</span>，即输入 <span class="menu-path">6 - item3</span>。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>计算总分/均分</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">计算变量</div>
+        <div class="step-content"><span class="menu-path">转换 → 计算变量</span>。目标变量输入如 anxiety_total。数值表达式输入求和公式，如 <span class="menu-path">item1 + item2 + item3_r + item4</span>。若求均分则除以题目数。</div>
+      </div>
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 处理含缺失值的求和</div>
+      如果被试有个别题目没填，直接求和会产生缺失。可以用 MEAN 函数：<span class="menu-path">MEAN(item1, item2, item3_r, item4) * 4</span>，这样会用已有项目的均值估算总分。但仅在少量缺失时使用。
+    </div>
+  </div>
+  <div class="card">
+    <h3>中心化（Centering）</h3>
+    <p>做回归分析（尤其涉及交互项）时，常需要对预测变量中心化以减少多重共线性。</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">计算均值中心化变量</div>
+        <div class="step-content"><span class="menu-path">转换 → 计算变量</span>。目标变量输入如 stress_c。先通过描述统计获得 stress 的均值（假设为3.45），然后在数值表达式输入 <span class="menu-path">stress - 3.45</span>。</div>
+      </div>
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 标准化 vs 中心化</div>
+      标准化（Z分数）= (X - M) / SD，均值为0，标准差为1。中心化 = X - M，均值为0但保留原始标准差。做调节效应分析时通常用中心化而非标准化，因为保留了原始量纲便于解释。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ONE-SAMPLE T ==================== -->
+<div class="section" id="sec-one-sample-t">
+  <h2 class="section-title">单样本 t 检验</h2>
+  <p class="section-subtitle">检验样本均值是否显著不同于某个已知值（总体均值或理论值）</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>你有一组数据，想检验其均值是否不同于某个特定值。例如：学生的焦虑得分是否显著高于全国常模均值？量表的中点是3分，被试均分是否显著偏离中点？</p>
+    <h4>前提假设</h4>
+    <p>① 因变量为连续变量（至少为等距尺度）。② 数据来自随机抽样。③ 数据近似正态分布（样本量 ≥ 30时可放宽）。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开单样本 t 检验</div>
+        <div class="step-content"><span class="menu-path">分析 → 比较均值 → 单样本 T 检验</span>（Analyze → Compare Means → One-Sample T Test）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">选择检验变量</div>
+        <div class="step-content">将要检验的变量移入「检验变量」框。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">输入检验值</div>
+        <div class="step-content">在「检验值」框中输入你要比较的目标值（如全国常模均值50，或量表中点3）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置选项（可选）</div>
+        <div class="step-content">点击<span class="menu-path">选项</span>，可修改置信区间水平（默认95%）和缺失值处理方式。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 表1：单样本统计</div>
+      显示 N（样本量）、Mean（均值）、Std. Deviation（标准差）、Std. Error Mean（均值的标准误）。先看这个表，了解数据的基本情况。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 表2：单样本检验</div>
+      <strong>t</strong>：t统计量，反映样本均值与检验值之间的差异有多大（以标准误为单位）。<br>
+      <strong>df</strong>：自由度 = N - 1。<br>
+      <strong>Sig. (2-tailed) / p值</strong>：双尾显著性。p &lt; .05 说明样本均值与检验值之间的差异具有统计显著性。<br>
+      <strong>Mean Difference</strong>：均值差 = 样本均值 - 检验值。正值表示样本均值高于检验值。<br>
+      <strong>95% CI of the Difference</strong>：均值差的95%置信区间。如果区间不包含0，与 p &lt; .05 的结论一致。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 格式报告</div>
+      t(df) = t值, p = p值, d = Cohen's d值。例如：t(99) = 2.45, p = .016, d = 0.25。<br>
+      Cohen's d = Mean Difference / Std. Deviation，需要手动计算。SPSS不直接输出效应量。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== INDEPENDENT T ==================== -->
+<div class="section" id="sec-independent-t">
+  <h2 class="section-title">独立样本 t 检验</h2>
+  <p class="section-subtitle">比较两个独立组的均值是否存在显著差异</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>比较两个不同组在某个连续变量上的均值差异。例如：实验组和控制组的焦虑得分是否有差异？男女在自尊量表上的得分是否不同？</p>
+    <h4>前提假设</h4>
+    <p>① 因变量为连续变量。② 自变量为二分类变量（两个独立组）。③ 各组数据近似正态分布。④ 两组方差齐性（SPSS会自动检验）。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开独立样本 t 检验</div>
+        <div class="step-content"><span class="menu-path">分析 → 比较均值 → 独立样本 T 检验</span>（Analyze → Compare Means → Independent-Samples T Test）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">选择检验变量</div>
+        <div class="step-content">将因变量（连续变量，如 anxiety_score）移入「检验变量」框。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">选择分组变量</div>
+        <div class="step-content">将分组变量（如 group）移入「分组变量」框。此时变量名后会显示「(? ?)」，表示需要定义组别。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">定义组别</div>
+        <div class="step-content">点击<span class="menu-path">定义组</span>按钮。在「组1」输入一个组的编码值（如1），「组2」输入另一组的编码值（如2）。点击「继续」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 表1：组统计</div>
+      显示两组各自的N、均值、标准差和均值标准误。先看这个表判断方向：哪个组的均值更高。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 表2：独立样本检验（关键表）</div>
+      这个表分为两行：<br>
+      <strong>第1行「假定方差相等」</strong>和<strong>第2行「不假定方差相等」</strong>。<br><br>
+      <strong>如何选择看哪行？</strong>先看左侧 Levene 方差齐性检验：<br>
+      · Levene 检验的 Sig. ≥ .05 → 方差齐性成立 → 看<strong>第1行</strong><br>
+      · Levene 检验的 Sig. &lt; .05 → 方差不齐 → 看<strong>第2行</strong>（Welch校正）<br><br>
+      然后在对应行中查看：<br>
+      <strong>t</strong>：t统计量。<br>
+      <strong>df</strong>：自由度（第2行的df可能不是整数，这是正常的）。<br>
+      <strong>Sig. (2-tailed)</strong>：p值。p &lt; .05 表示两组差异显著。<br>
+      <strong>Mean Difference</strong>：两组均值之差。<br>
+      <strong>95% CI</strong>：均值差的置信区间。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 格式报告</div>
+      t(df) = t值, p = p值, d = Cohen's d。例如：t(98) = -2.13, p = .036, d = 0.43。<br>
+      Cohen's d = Mean Difference / 合并标准差。合并标准差 = √[((n₁-1)s₁² + (n₂-1)s₂²) / (n₁+n₂-2)]。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAIRED T ==================== -->
+<div class="section" id="sec-paired-t">
+  <h2 class="section-title">配对样本 t 检验</h2>
+  <p class="section-subtitle">比较同一组被试在两个条件/时间点上的均值差异</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>同一批被试测量了两次，检验两次测量的均值是否有显著差异。例如：干预前后的抑郁得分是否有显著变化？同一批被试在两种实验条件下的反应时是否不同？</p>
+    <h4>前提假设</h4>
+    <p>① 因变量为连续变量。② 两次测量来自同一组被试（或匹配的被试对）。③ 差值（后测-前测）近似正态分布。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开配对样本 t 检验</div>
+        <div class="step-content"><span class="menu-path">分析 → 比较均值 → 配对样本 T 检验</span>（Analyze → Compare Means → Paired-Samples T Test）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">配对变量</div>
+        <div class="step-content">同时选中两个变量（如 score_pre 和 score_post），点击箭头移入「配对变量」框。变量1和变量2会自动配对。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 表1：配对样本统计</div>
+      显示两个变量各自的均值、N、标准差和均值标准误。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 表2：配对样本相关</div>
+      两次测量之间的相关系数及其显著性。相关越高，配对设计的统计力越强。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 表3：配对样本检验（关键表）</div>
+      <strong>Mean</strong>：两个变量的均值之差（变量1 - 变量2）。<br>
+      <strong>Std. Deviation</strong>：差值的标准差。<br>
+      <strong>t</strong>：t统计量。<br>
+      <strong>df</strong>：自由度 = N - 1。<br>
+      <strong>Sig. (2-tailed)</strong>：p值。p &lt; .05 说明前后测的差异显著。<br>
+      <strong>95% CI</strong>：差值的置信区间，不含0则差异显著。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ONE-WAY ANOVA ==================== -->
+<div class="section" id="sec-one-way-anova">
+  <h2 class="section-title">单因素方差分析（One-Way ANOVA）</h2>
+  <p class="section-subtitle">比较三个或以上独立组的均值是否存在显著差异</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>当自变量是一个分类变量且有三个或以上水平时使用。例如：三种不同疗法（CBT、正念、药物）对抑郁得分的影响是否不同？四个年级的学生在学业倦怠上是否有差异？</p>
+    <h4>前提假设</h4>
+    <p>① 因变量为连续变量。② 自变量为分类变量（≥3组）。③ 各组数据近似正态分布。④ 各组方差齐性（Levene检验）。⑤ 观察值相互独立。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开单因素方差分析</div>
+        <div class="step-content"><span class="menu-path">分析 → 比较均值 → 单因素 ANOVA</span>（Analyze → Compare Means → One-Way ANOVA）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">将因变量移入「因变量列表」，将分组变量移入「因子」框。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置事后比较</div>
+        <div class="step-content">点击<span class="menu-path">事后比较（Post Hoc）</span>按钮。方差齐时常选 <strong>Tukey HSD</strong>（最常用）或 Bonferroni；方差不齐时选 <strong>Games-Howell</strong>。勾选后点击「继续」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">点击<span class="menu-path">选项</span>按钮，勾选「描述性」（获得各组的均值和标准差）和「方差齐性检验」（Levene检验）。可选勾选「均值图」以可视化组间差异。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 描述性统计表</div>
+      各组的N、均值、标准差、均值的95%置信区间。用于了解各组的基本情况和差异方向。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 方差齐性检验（Levene检验）</div>
+      Sig. ≥ .05 → 方差齐性成立，可以信任ANOVA结果。<br>
+      Sig. &lt; .05 → 方差不齐，应报告 Welch 或 Brown-Forsythe 的检验结果（在「选项」中可勾选），或使用 Games-Howell 事后比较。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 ANOVA表（关键表）</div>
+      <strong>F</strong>：F统计量 = 组间均方 / 组内均方。值越大说明组间差异相对于组内变异越大。<br>
+      <strong>Sig.</strong>：p值。p &lt; .05 表示至少有两组之间存在显著差异（但不告诉你是哪两组）。<br>
+      <strong>效应量</strong>：η² = 组间SS / 总SS，需手动计算。η² = .01小效应, .06中效应, .14大效应。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 事后多重比较表</div>
+      显示每两组之间的均值差、标准误和p值。只看 Sig. 列：p &lt; .05 表示这两组之间存在显著差异。这个表是ANOVA后最重要的补充，告诉你具体哪些组之间有差异。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TWO-WAY ANOVA ==================== -->
+<div class="section" id="sec-two-way-anova">
+  <h2 class="section-title">双因素方差分析（Two-Way ANOVA）</h2>
+  <p class="section-subtitle">考察两个自变量及其交互作用对因变量的影响</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>有两个分类自变量，需要同时检验它们各自的主效应以及交互效应。例如：性别（男/女）× 教学方法（传统/翻转课堂）对成绩的影响。交互效应是核心关注点：一个自变量的效应是否因另一个自变量的水平不同而不同？</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开一般线性模型</div>
+        <div class="step-content"><span class="menu-path">分析 → 一般线性模型 → 单变量</span>（Analyze → General Linear Model → Univariate）。注意：双因素ANOVA不在「比较均值」菜单下，而在「一般线性模型」下。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">将因变量移入「因变量」框。将两个自变量分别移入「固定因子」框。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置图表</div>
+        <div class="step-content">点击<span class="menu-path">绘图</span>按钮。在「水平轴」放一个自变量，「单独的线」放另一个自变量，点击「添加」，再点击「继续」。这样可以得到交互效应的折线图，非常重要。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">点击<span class="menu-path">选项</span>，勾选「描述性统计」「效应量估计」「方差齐性检验」。在「显示均值」框中将两个因子及其交互项移入，可得到边际均值。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">设置事后比较（可选）</div>
+        <div class="step-content">点击<span class="menu-path">事后比较</span>，对水平数 ≥ 3的因子选择事后比较方法（如Bonferroni）。两水平的因子不需要事后比较。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 主体间效应检验（Tests of Between-Subjects Effects）</div>
+      这是核心结果表。每行一个效应：<br>
+      <strong>Corrected Model</strong>：整个模型的检验。<br>
+      <strong>因子A（如 gender）</strong>：A的主效应。Sig. &lt; .05 表示A的不同水平上，因变量均值有显著差异。<br>
+      <strong>因子B（如 method）</strong>：B的主效应。<br>
+      <strong>A * B（交互项）</strong>：交互效应。<strong>Sig. &lt; .05 表示交互效应显著</strong>，即A的效应因B的水平不同而不同。这通常是最关注的结果。<br>
+      <strong>Partial Eta Squared (ηp²)</strong>：偏η²效应量。.01小, .06中, .14大。
+    </div>
+    <div class="box box-warning">
+      <div class="box-title">⚠️ 交互效应的解读优先</div>
+      如果交互效应显著，主效应的解释需要谨慎。此时应该看交互效应图，并做简单效应分析（在A的每个水平上分别检验B的效应），而不是单独解读主效应。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== REPEATED MEASURES ANOVA ==================== -->
+<div class="section" id="sec-repeated-anova">
+  <h2 class="section-title">重复测量方差分析</h2>
+  <p class="section-subtitle">同一组被试在三个或以上时间点/条件下的比较</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>同一批被试测量了三次或以上（纵向研究的多个时间点，或被试内设计的多个条件）。例如：干预前、干预后、追踪三个时间点的抑郁得分变化。</p>
+    <h4>前提假设</h4>
+    <p>① 因变量为连续变量。② 同一组被试重复测量。③ 数据近似正态分布。④ <strong>球形性假设</strong>（Mauchly检验）：各水平差值的方差相等。这是重复测量特有的假设。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开重复测量</div>
+        <div class="step-content"><span class="menu-path">分析 → 一般线性模型 → 重复测量</span>（Analyze → GLM → Repeated Measures）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">定义被试内因子</div>
+        <div class="step-content">弹出「重复测量定义因子」对话框。在「被试内因子名称」输入因子名（如 time），在「级别数」输入水平数（如3），点击「添加」，然后点击「定义」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">分配变量</div>
+        <div class="step-content">将对应各水平的变量依次移入「被试内变量」框。如 score_t1 对应(1)，score_t2 对应(2)，score_t3 对应(3)。顺序很重要。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">点击<span class="menu-path">选项</span>，勾选「描述性统计」「效应量估计」。在「显示均值」中将因子移入并勾选「比较主效应」（选Bonferroni校正），可以直接得到各水平间的配对比较。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">设置图表</div>
+        <div class="step-content">点击<span class="menu-path">绘图</span>，将因子放在「水平轴」，点击「添加」，可以可视化各时间点的变化趋势。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 Mauchly 球形性检验</div>
+      <strong>Sig. ≥ .05</strong> → 球形性成立，看「假定球形性」行的结果。<br>
+      <strong>Sig. &lt; .05</strong> → 球形性被违反，需要使用校正：<br>
+      · Greenhouse-Geisser 的 ε ≥ .75 时，用 Huynh-Feldt 校正<br>
+      · Greenhouse-Geisser 的 ε &lt; .75 时，用 Greenhouse-Geisser 校正
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 被试内效应检验</div>
+      根据球形性检验结果选择对应行，查看 F值和 Sig.。p &lt; .05 说明不同时间点/条件间存在显著差异。<br>
+      Partial Eta Squared 为效应量。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 成对比较（Pairwise Comparisons）</div>
+      如果在选项中勾选了「比较主效应」，会显示每两个水平之间的差异及经Bonferroni校正后的p值。这告诉你具体哪些时间点之间有显著差异。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MIXED ANOVA ==================== -->
+<div class="section" id="sec-mixed-anova">
+  <h2 class="section-title">混合设计方差分析</h2>
+  <p class="section-subtitle">同时包含被试间因子和被试内因子的设计</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>一个自变量是组间变量（如实验组/控制组），另一个是组内变量（如前测/后测）。这是心理学干预研究中最常见的设计。关键问题通常是：组别 × 时间的交互效应是否显著（即两组的变化趋势是否不同）。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">定义被试内因子</div>
+        <div class="step-content"><span class="menu-path">分析 → 一般线性模型 → 重复测量</span>。定义被试内因子（如 time，级别数=2或3）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">分配变量和被试间因子</div>
+        <div class="step-content">点击「定义」后，将各时间点变量移入「被试内变量」框。将组别变量移入<strong>「被试间因子」</strong>框。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置图表</div>
+        <div class="step-content">点击「绘图」。水平轴放时间因子，「单独的线」放组别因子。这个图非常重要，可以直观看到两组的变化轨迹。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">勾选「描述性统计」「效应量估计」。将交互项和各因子移入「显示均值」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 关注三个效应</div>
+      <strong>① 被试内效应（time）</strong>：时间的主效应，总体上得分是否随时间变化。<br>
+      <strong>② 交互效应（time * group）</strong>：最关键！Sig. &lt; .05 说明两组的时间变化模式不同，通常意味着干预有效。<br>
+      <strong>③ 被试间效应（group）</strong>：组别的主效应，两组的总体均值是否不同。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 交互效应显著后的跟进</div>
+      需要做简单效应分析：在每个组内分别检验时间效应（用配对t检验），和在每个时间点分别检验组间差异（用独立样本t检验）。SPSS中可通过语法的 /EMMEANS 子命令实现。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ANCOVA ==================== -->
+<div class="section" id="sec-ancova">
+  <h2 class="section-title">协方差分析（ANCOVA）</h2>
+  <p class="section-subtitle">在控制协变量的情况下比较组间均值差异</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>想比较组间差异，但需要控制某些混淆变量。例如：比较两种教学方法的效果，但需要控制学生的入学成绩；比较不同疗法对抑郁的效果，控制基线抑郁水平。</p>
+    <h4>前提假设</h4>
+    <p>① ANOVA的所有假设。② 协变量与因变量之间呈线性关系。③ <strong>回归斜率同质性</strong>：协变量对因变量的影响在各组中相同（各组的回归线平行）。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开一般线性模型</div>
+        <div class="step-content"><span class="menu-path">分析 → 一般线性模型 → 单变量</span>。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">因变量移入「因变量」框。分组变量移入「固定因子」框。协变量（如基线得分）移入<strong>「协变量」</strong>框。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">检验回归斜率同质性（重要前提）</div>
+        <div class="step-content">点击<span class="menu-path">模型</span>按钮，选择「自定义」。将因子、协变量以及<strong>因子×协变量的交互项</strong>都加入模型。运行后查看交互项是否显著：不显著则满足假设。确认后重新运行时去掉交互项（使用默认的全因子模型）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">勾选「描述性统计」「效应量估计」。在「显示均值」中移入因子并勾选「比较主效应」（Bonferroni校正）。这里的均值是经过协变量调整后的<strong>估计边际均值</strong>。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 主体间效应检验表</div>
+      关注两行：<br>
+      <strong>协变量行</strong>：Sig. &lt; .05 说明协变量确实对因变量有显著影响，控制它是有意义的。<br>
+      <strong>因子行</strong>：在控制了协变量后，组间是否仍然有显著差异。这才是你最关心的结果。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 估计边际均值（Estimated Marginal Means）</div>
+      这是控制了协变量后各组的调整均值，与原始均值不同。报告结果时应使用这些调整后的均值。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MANOVA ==================== -->
+<div class="section" id="sec-manova">
+  <h2 class="section-title">多元方差分析（MANOVA）</h2>
+  <p class="section-subtitle">当有多个因变量时，同时检验组间差异</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>有多个相关的因变量需要同时检验。例如：不同疗法对焦虑、抑郁、生活满意度三个指标的影响。MANOVA的优势是控制了多次检验导致的I类错误膨胀，且考虑了因变量之间的相关性。</p>
+    <h4>前提假设</h4>
+    <p>① 因变量为多个连续变量且彼此相关（但不能高度共线）。② 多元正态分布。③ 方差-协方差矩阵同质性（Box's M检验）。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开多变量</div>
+        <div class="step-content"><span class="menu-path">分析 → 一般线性模型 → 多变量</span>（Analyze → GLM → Multivariate）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">将所有因变量移入「因变量」框。将分组变量移入「固定因子」框。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">点击「选项」，勾选「描述性统计」「效应量估计」「方差齐性检验」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 多元检验表（Multivariate Tests）</div>
+      有四个统计量（Pillai's Trace, Wilks' Lambda, Hotelling's Trace, Roy's Largest Root）。通常报告 <strong>Pillai's Trace</strong>（对违反假设最稳健）或 <strong>Wilks' Lambda</strong>（最常用）。<br>
+      查看对应因子行的 Sig.。p &lt; .05 表示各组在因变量的线性组合上存在显著差异。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 主体间效应检验表</div>
+      MANOVA显著后，再看这个表中每个因变量单独的F检验结果，了解具体哪些因变量上存在组间差异。这是MANOVA后的跟进分析。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 Box's M 检验</div>
+      检验方差-协方差矩阵同质性。此检验非常敏感，通常以 p &lt; .001 为标准（而非 .05）。不显著表示满足假设。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== POST HOC ==================== -->
+<div class="section" id="sec-posthoc">
+  <h2 class="section-title">事后比较（Post Hoc）</h2>
+  <p class="section-subtitle">ANOVA显著后，确定具体哪些组之间有差异</p>
+  <div class="card">
+    <h3>常用事后比较方法选择</h3>
+    <div class="table-wrap"><table>
+      <tr><th>方法</th><th>适用条件</th><th>特点</th></tr>
+      <tr><td>Tukey HSD</td><td>方差齐，各组N相近</td><td>最常用，平衡了检验力和I类错误控制</td></tr>
+      <tr><td>Bonferroni</td><td>方差齐</td><td>比较保守，比较次数少时合适</td></tr>
+      <tr><td>Games-Howell</td><td>方差不齐或各组N不等</td><td>不要求方差齐性，推荐</td></tr>
+      <tr><td>Scheffé</td><td>方差齐</td><td>最保守，适用于所有对比（含复杂对比）</td></tr>
+      <tr><td>LSD</td><td>方差齐</td><td>最宽松，不校正多重比较，通常不推荐</td></tr>
+    </table></div>
+    <div class="box box-tip">
+      <div class="box-title">💡 简单选择策略</div>
+      方差齐（Levene检验 p ≥ .05）→ Tukey HSD<br>
+      方差不齐（Levene检验 p &lt; .05）→ Games-Howell<br>
+      这两个选择在绝大多数心理学研究场景下都是合适的。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PEARSON ==================== -->
+<div class="section" id="sec-pearson">
+  <h2 class="section-title">Pearson 相关分析</h2>
+  <p class="section-subtitle">检验两个连续变量之间的线性相关关系</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>探索两个连续变量之间是否存在线性关系以及关系的强度和方向。例如：焦虑与抑郁的关系、自尊与学业成绩的关系。</p>
+    <h4>前提假设</h4>
+    <p>① 两个变量都是连续变量。② 双变量正态分布。③ 两变量之间呈线性关系（非曲线关系）。④ 无显著异常值。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开双变量相关</div>
+        <div class="step-content"><span class="menu-path">分析 → 相关 → 双变量</span>（Analyze → Correlate → Bivariate）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">选择变量</div>
+        <div class="step-content">将需要分析的变量全部移入「变量」框。SPSS会自动计算所有变量两两之间的相关系数，生成相关矩阵。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">确认设置</div>
+        <div class="step-content">确保「相关系数」中勾选了「Pearson」。「显著性检验」选双尾（默认）。可勾选「标记显著性相关」，SPSS会在显著的相关系数旁标注星号。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 相关矩阵表</div>
+      每个单元格包含三个值：<br>
+      <strong>Pearson 相关系数 (r)</strong>：范围 -1 到 +1。正值=正相关，负值=负相关。<br>
+      · |r| &lt; .10 极弱, .10-.30 弱, .30-.50 中等, &gt; .50 强（Cohen标准）<br>
+      <strong>Sig. (2-tailed)</strong>：p值。p &lt; .05 表示相关系数显著不为零。<br>
+      <strong>N</strong>：参与计算的有效样本量。<br>
+      对角线上的值都是1（自己与自己完全相关），矩阵是对称的。
+    </div>
+    <div class="box box-warning">
+      <div class="box-title">⚠️ 常见误区</div>
+      相关不等于因果。即使 r 很大且显著，也不能说明 X 导致了 Y。另外，Pearson 相关只能检测线性关系，如果两个变量之间是U型或倒U型关系，Pearson r 可能接近0。建议先画散点图确认关系形态。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SPEARMAN ==================== -->
+<div class="section" id="sec-spearman">
+  <h2 class="section-title">Spearman 等级相关</h2>
+  <p class="section-subtitle">用于有序数据或不满足正态性时的相关分析</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>当数据不满足Pearson相关的假设时使用：变量为有序变量（如教育程度等级），数据严重偏态，或关系是单调但非线性的。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <p>与Pearson相关操作完全相同，只是在步骤3中勾选「Spearman」而非「Pearson」。路径：<span class="menu-path">分析 → 相关 → 双变量</span>，勾选 Spearman。</p>
+  </div>
+  <div class="card">
+    <h3>输出解读</h3>
+    <p>输出格式与Pearson相同，只是系数符号为 ρ (rho) 或 rs。解释方式与Pearson相关系数一致，只是基于秩次而非原始值。</p>
+  </div>
+</div>
+
+<!-- ==================== PARTIAL CORRELATION ==================== -->
+<div class="section" id="sec-partial-corr">
+  <h2 class="section-title">偏相关分析</h2>
+  <p class="section-subtitle">控制第三个变量后，检验两个变量之间的相关</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>怀疑两个变量之间的相关是由第三个变量造成的。例如：冰激凌销量与溺水人数正相关，但控制了气温后相关消失。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开偏相关</div>
+        <div class="step-content"><span class="menu-path">分析 → 相关 → 偏相关</span>（Analyze → Correlate → Partial）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">将要分析相关的变量移入「变量」框，将需要控制的变量移入「控制变量」框。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">输出的偏相关系数表示在排除了控制变量影响后，两个变量之间的净相关。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== POINT-BISERIAL ==================== -->
+<div class="section" id="sec-point-biserial">
+  <h2 class="section-title">点二列相关</h2>
+  <p class="section-subtitle">一个连续变量与一个二分变量之间的相关</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>一个变量是连续的，另一个是二分类的（如性别、是否通过）。例如：性别与攻击性得分的相关。</p>
+  </div>
+  <div class="card">
+    <h3>操作方法</h3>
+    <p>SPSS中没有单独的点二列相关菜单。直接用 Pearson 相关即可，前提是二分变量编码为0和1（或任意两个数值）。当一个变量是二分变量时，Pearson r 的计算结果就等同于点二列相关系数 (rpb)。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 注意</div>
+      确保二分变量是用数值编码的（如0/1），而不是字符串（如「男」/「女」）。如果是字符串，需要先重新编码为数值。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SIMPLE REGRESSION ==================== -->
+<div class="section" id="sec-simple-reg">
+  <h2 class="section-title">简单线性回归</h2>
+  <p class="section-subtitle">用一个预测变量预测因变量</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>当你想知道一个自变量（预测变量）能否预测因变量，以及预测关系的强度。例如：自尊能否预测生活满意度？学习时间能否预测考试成绩？</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开线性回归</div>
+        <div class="step-content"><span class="menu-path">分析 → 回归 → 线性</span>（Analyze → Regression → Linear）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">将因变量移入「因变量」框，将预测变量移入「自变量」框。方法保持默认的「进入」（Enter）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置统计量</div>
+        <div class="step-content">点击<span class="menu-path">统计</span>按钮，勾选「估计值」「模型拟合度」「描述性」。如需检查共线性可勾选「共线性诊断」（简单回归中不需要）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置图表（可选）</div>
+        <div class="step-content">点击<span class="menu-path">绘图</span>，将 *ZRESID 放入Y轴，*ZPRED 放入X轴，可以检查残差是否满足等方差性假设。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 模型摘要（Model Summary）</div>
+      <strong>R</strong>：相关系数，简单回归中等于Pearson r的绝对值。<br>
+      <strong>R²</strong>：决定系数，表示预测变量能解释因变量多少比例的变异。例如 R² = .25 表示解释了25%的变异。<br>
+      <strong>调整后的 R²</strong>：对样本量和预测变量数量进行校正后的R²，多元回归中更有参考价值。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 ANOVA表</div>
+      检验整个回归模型是否显著。Sig. &lt; .05 表示模型有效（至少一个预测变量显著）。简单回归中等价于检验回归系数是否显著。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 系数表（Coefficients）</div>
+      <strong>B（非标准化系数）</strong>：回归方程的斜率。X每增加1个单位，Y预计变化B个单位。<br>
+      <strong>Beta（标准化系数）</strong>：标准化后的斜率，简单回归中等于r。<br>
+      <strong>t 和 Sig.</strong>：检验该系数是否显著不为零。<br>
+      <strong>(Constant)</strong>：截距，X=0时Y的预测值。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MULTIPLE REGRESSION ==================== -->
+<div class="section" id="sec-multiple-reg">
+  <h2 class="section-title">多元线性回归</h2>
+  <p class="section-subtitle">用多个预测变量同时预测因变量</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>探索多个自变量对因变量的联合预测作用。例如：自尊、社会支持和应对方式共同预测心理韧性。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <p>与简单线性回归相同路径：<span class="menu-path">分析 → 回归 → 线性</span>。区别在于将多个预测变量一起放入「自变量」框。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 额外建议</div>
+      在「统计」中勾选「共线性诊断」，检查多重共线性（VIF &gt; 10 或容差 &lt; 0.1 表示共线性严重）。在「保存」中可勾选保存残差和Cook's距离用于诊断异常值。
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果补充要点</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 系数表解读要点</div>
+      多元回归中，<strong>Beta（标准化系数）</strong>可以比较各预测变量的相对重要性，绝对值越大影响越大。每个变量的 Sig. 反映的是在控制了其他所有变量后，该变量是否仍有独特贡献。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 共线性统计量</div>
+      <strong>VIF（方差膨胀因子）</strong>：&gt; 10 表示严重共线性。<br>
+      <strong>容差（Tolerance）</strong>：= 1/VIF，&lt; 0.1 表示严重共线性。<br>
+      共线性会导致回归系数不稳定，某些变量本应显著却变得不显著。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEPWISE REGRESSION ==================== -->
+<div class="section" id="sec-stepwise-reg">
+  <h2 class="section-title">逐步回归</h2>
+  <p class="section-subtitle">让SPSS自动选择最优预测变量组合</p>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <p>与多元回归相同路径，唯一区别是在「方法」下拉菜单中选择「逐步」（Stepwise）而非「进入」（Enter）。SPSS会根据统计标准自动添加或移除变量。</p>
+    <div class="box box-warning">
+      <div class="box-title">⚠️ 重要提醒</div>
+      逐步回归在心理学领域争议较大。它完全由数据驱动，容易过拟合，且结果不稳定（不同样本可能选出不同变量）。如果是探索性研究可以使用，但如果有理论假设指导变量选择，更推荐使用层次回归。审稿人可能会质疑逐步回归的使用。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HIERARCHICAL REGRESSION ==================== -->
+<div class="section" id="sec-hierarchical-reg">
+  <h2 class="section-title">层次回归（Hierarchical Regression）</h2>
+  <p class="section-subtitle">按理论顺序分步纳入预测变量，考察每一步的增量贡献</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>有理论依据决定变量进入回归的顺序。例如：第一步放入人口统计变量（年龄、性别）控制混淆，第二步放入核心预测变量（自尊），看自尊在控制了人口变量后是否仍有额外的预测力。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开线性回归</div>
+        <div class="step-content"><span class="menu-path">分析 → 回归 → 线性</span>。方法选「进入」（Enter）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置第一步变量</div>
+        <div class="step-content">将第一步的变量（如控制变量 age, gender）移入「自变量」框。注意此时对话框上方显示「块 1/1」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">添加第二步</div>
+        <div class="step-content">点击<span class="menu-path">下一个</span>按钮（Next），对话框显示变为「块 2/2」。将第二步的变量（如 self_esteem）移入。可继续点击「下一个」添加更多步骤。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置统计量</div>
+        <div class="step-content">点击「统计」，勾选「估计值」「模型拟合度」「R²变化量」（关键！）和「共线性诊断」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 模型摘要（Model Summary）</div>
+      关键指标是 <strong>ΔR²（R² Change）</strong>和<strong>Sig. F Change</strong>：<br>
+      模型1：R² 表示第一步变量解释的变异比例。<br>
+      模型2：ΔR² 表示加入第二步变量后，额外增加了多少解释力。<strong>Sig. F Change &lt; .05</strong> 说明新增的变量组有显著的增量贡献。这通常是层次回归最核心的报告指标。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== LOGISTIC REGRESSION ==================== -->
+<div class="section" id="sec-logistic-reg">
+  <h2 class="section-title">Logistic 回归</h2>
+  <p class="section-subtitle">因变量为二分类变量时的回归分析</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>因变量是二分变量（是/否、通过/未通过、患病/健康）。例如：哪些因素预测是否会退学？自尊和社会支持能否预测是否患有抑郁症？</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开二元 Logistic 回归</div>
+        <div class="step-content"><span class="menu-path">分析 → 回归 → 二元 Logistic</span>（Analyze → Regression → Binary Logistic）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">因变量（二分变量，编码为0和1）移入「因变量」框。预测变量移入「协变量」框。分类预测变量需要点击<span class="menu-path">分类</span>按钮进行设置。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置方法</div>
+        <div class="step-content">方法选「进入」（Enter）用于验证性研究；选「向前：Wald」或「向前：LR」用于探索性研究。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">点击「选项」，勾选「分类图」「Hosmer-Lemeshow拟合优度」「CI for Exp(B)」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 模型摘要</div>
+      <strong>-2 Log Likelihood</strong>：值越小模型拟合越好。<br>
+      <strong>Cox & Snell R²</strong> 和 <strong>Nagelkerke R²</strong>：伪R²，类似于线性回归的R²。Nagelkerke R² 范围0-1，更常报告。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 Hosmer-Lemeshow 检验</div>
+      模型拟合优度检验。Sig. &gt; .05 表示模型与数据拟合良好（注意方向与常规相反）。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 分类表</div>
+      显示模型的预测准确率。对角线上是正确分类的个案数。总体预测正确率越高越好。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 方程中的变量（关键表）</div>
+      <strong>B</strong>：回归系数。正值表示该变量增大时，事件发生的概率增加。<br>
+      <strong>Wald</strong>：检验该系数是否显著。<br>
+      <strong>Sig.</strong>：p值。<br>
+      <strong>Exp(B)（优势比/OR）</strong>：最重要的指标。OR &gt; 1 表示该变量增加1单位时，事件发生的优势增加（OR-1）×100%。OR &lt; 1 表示保护因素。例如 OR = 2.3 意味着该变量增加1单位，事件发生的可能性增加130%。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ORDINAL LOGISTIC ==================== -->
+<div class="section" id="sec-ordinal-reg">
+  <h2 class="section-title">有序 Logistic 回归</h2>
+  <p class="section-subtitle">因变量为有序分类变量时的回归分析</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>因变量有3个或以上有顺序的类别。例如：症状严重程度（轻度/中度/重度），满意程度（不满意/一般/满意/非常满意）。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开有序回归</div>
+        <div class="step-content"><span class="menu-path">分析 → 回归 → 有序</span>（Analyze → Regression → Ordinal）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">因变量移入「因变量」框。连续预测变量移入「协变量」，分类预测变量移入「因子」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置输出</div>
+        <div class="step-content">点击「输出」，勾选「参数估计」「拟合优度检验」「平行线检验」。平行线检验验证比例优势假设（proportional odds assumption）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 关键输出</div>
+      <strong>平行线检验</strong>：Sig. &gt; .05 表示满足比例优势假设，可以使用有序回归。如果违反，考虑多项Logistic回归。<br>
+      <strong>参数估计表</strong>：Estimate为回归系数，Sig.为显著性。解读方式类似二元Logistic，exp(B)为OR值。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MULTINOMIAL LOGISTIC ==================== -->
+<div class="section" id="sec-multinomial-reg">
+  <h2 class="section-title">多项 Logistic 回归</h2>
+  <p class="section-subtitle">因变量为无序多分类变量时的回归分析</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>因变量有3个或以上无顺序的类别。例如：职业选择（教师/医生/工程师），应对方式类型（问题聚焦/情绪聚焦/回避）。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开多项 Logistic</div>
+        <div class="step-content"><span class="menu-path">分析 → 回归 → 多项 Logistic</span>（Analyze → Regression → Multinomial Logistic）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">因变量移入「因变量」框（SPSS会自动选最后一个类别作为参照组）。预测变量移入「因子」（分类变量）或「协变量」（连续变量）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置统计</div>
+        <div class="step-content">点击「统计」，勾选「似然比检验」「参数估计」「拟合优度」。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <p>输出中的参数估计表会分多个部分，每个部分是一个类别与参照组的对比。每行的Exp(B)是相对于参照组的优势比。</p>
+  </div>
+</div>
+
+<!-- ==================== POISSON REGRESSION ==================== -->
+<div class="section" id="sec-poisson-reg">
+  <h2 class="section-title">Poisson 回归</h2>
+  <p class="section-subtitle">因变量为计数数据时的回归分析</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>因变量是某个事件在固定时间/空间内发生的次数。例如：每月自伤次数、一学期缺课天数、一周内发生焦虑发作的次数。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开广义线性模型</div>
+        <div class="step-content"><span class="menu-path">分析 → 广义线性模型 → 广义线性模型</span>（Analyze → Generalized Linear Models → Generalized Linear Models）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置模型类型</div>
+        <div class="step-content">在「类型」选项卡中，分布选「Poisson」，链接函数选「对数（Log）」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置响应变量</div>
+        <div class="step-content">在「响应」选项卡中，将因变量移入。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置预测变量</div>
+        <div class="step-content">在「预测变量」选项卡中，将连续变量移入「协变量」，分类变量移入「因子」。</div>
+      </div>
+    </div>
+    <div class="box box-warning">
+      <div class="box-title">⚠️ 过度离散</div>
+      如果数据的方差远大于均值（过度离散），Poisson模型不合适，需要改用负二项回归（Negative Binomial），同样在广义线性模型中选择。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MANN-WHITNEY ==================== -->
+<div class="section" id="sec-mann-whitney">
+  <h2 class="section-title">Mann-Whitney U 检验</h2>
+  <p class="section-subtitle">独立样本 t 检验的非参数替代</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>比较两个独立组的差异，但数据不满足正态性假设时使用。也适用于有序数据。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开非参数检验</div>
+        <div class="step-content"><span class="menu-path">分析 → 非参数检验 → 旧对话框 → 2个独立样本</span>（Analyze → Nonparametric Tests → Legacy Dialogs → 2 Independent Samples）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">将检验变量移入「检验变量列表」，分组变量移入「分组变量」框并定义组别（与独立样本t检验相同）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">选择检验类型</div>
+        <div class="step-content">确保勾选了「Mann-Whitney U」（默认已勾选）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 秩（Ranks）表</div>
+      显示两组的秩均值（Mean Rank）和秩和（Sum of Ranks）。秩均值越高表示该组在该变量上的值倾向于更大。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 检验统计量表</div>
+      <strong>Mann-Whitney U</strong>：U统计量。<br>
+      <strong>Z</strong>：标准化统计量。<br>
+      <strong>Asymp. Sig. (2-tailed)</strong>：p值。p &lt; .05 表示两组分布存在显著差异。<br>
+      效应量 r = Z / √N，需手动计算。r = .10小, .30中, .50大。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== WILCOXON ==================== -->
+<div class="section" id="sec-wilcoxon">
+  <h2 class="section-title">Wilcoxon 符号秩检验</h2>
+  <p class="section-subtitle">配对样本 t 检验的非参数替代</p>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <p><span class="menu-path">分析 → 非参数检验 → 旧对话框 → 2个相关样本</span>。将两个配对变量选入，勾选「Wilcoxon」。</p>
+  </div>
+  <div class="card">
+    <h3>输出解读</h3>
+    <p>输出包括正秩、负秩和并列的数量。Z值和p值（Asymp. Sig.）用于判断显著性。正秩表示后测 &gt; 前测的个案数量及其秩均值。</p>
+  </div>
+</div>
+
+<!-- ==================== KRUSKAL-WALLIS ==================== -->
+<div class="section" id="sec-kruskal-wallis">
+  <h2 class="section-title">Kruskal-Wallis 检验</h2>
+  <p class="section-subtitle">单因素 ANOVA 的非参数替代</p>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <p><span class="menu-path">分析 → 非参数检验 → 旧对话框 → K个独立样本</span>。设置检验变量和分组变量，定义组别范围，勾选「Kruskal-Wallis H」。</p>
+  </div>
+  <div class="card">
+    <h3>输出解读</h3>
+    <p>H统计量（近似卡方分布）和p值。显著后需要做两两比较：可以用多个Mann-Whitney U检验加Bonferroni校正，或使用SPSS 24及以上版本的自动成对比较功能。</p>
+  </div>
+</div>
+
+<!-- ==================== FRIEDMAN ==================== -->
+<div class="section" id="sec-friedman">
+  <h2 class="section-title">Friedman 检验</h2>
+  <p class="section-subtitle">重复测量 ANOVA 的非参数替代</p>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <p><span class="menu-path">分析 → 非参数检验 → 旧对话框 → K个相关样本</span>。将多个相关变量移入检验变量框，勾选「Friedman」。</p>
+  </div>
+  <div class="card">
+    <h3>输出解读</h3>
+    <p>输出卡方值、自由度和p值。显著后需要做事后比较：用多个Wilcoxon检验加Bonferroni校正。</p>
+  </div>
+</div>
+
+<!-- ==================== CHI-SQUARE ==================== -->
+<div class="section" id="sec-chi-square">
+  <h2 class="section-title">卡方检验</h2>
+  <p class="section-subtitle">检验分类变量之间的关联或频率分布是否符合预期</p>
+  <div class="card">
+    <h3>两种类型</h3>
+    <p><strong>拟合优度检验（Goodness of Fit）</strong>：一个分类变量的实际分布是否符合理论分布。例如：来访者的诊断类别分布是否均匀？<br>
+    <strong>独立性检验（Test of Independence）</strong>：两个分类变量是否相互独立。例如：性别与是否吸烟是否有关联？</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤：独立性检验（更常用）</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开交叉表</div>
+        <div class="step-content"><span class="menu-path">分析 → 描述统计 → 交叉表</span>（Analyze → Descriptive Statistics → Crosstabs）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">一个分类变量放入「行」，另一个放入「列」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置统计量</div>
+        <div class="step-content">点击<span class="menu-path">统计</span>按钮，勾选「卡方」。如果是2×2表，还可以勾选「Phi和Cramer's V」作为效应量。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置单元格显示</div>
+        <div class="step-content">点击<span class="menu-path">单元格</span>按钮，在「百分比」中勾选「行」「列」或「总计」百分比，便于解读。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 交叉表</div>
+      显示各类别组合的频次和百分比。先看这个表了解数据的分布模式。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 卡方检验表</div>
+      看 <strong>Pearson 卡方</strong> 行的 Asymp. Sig.。p &lt; .05 表示两个变量之间存在显著关联。<br>
+      <strong>注意</strong>：如果是2×2表，同时查看「连续校正」（Continuity Correction）行的值，它更保守一些。
+    </div>
+    <div class="box box-warning">
+      <div class="box-title">⚠️ 期望频次要求</div>
+      如果有超过20%的单元格期望频次小于5，卡方检验不可靠。此时：2×2表使用 Fisher精确检验（SPSS会自动输出）；更大的表需要合并类别或使用精确检验。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 效应量</div>
+      <strong>Phi (φ)</strong>：适用于2×2表。解读同Pearson r。<br>
+      <strong>Cramer's V</strong>：适用于任意大小的交叉表。V = .10小, .30中, .50大。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CRONBACH'S ALPHA ==================== -->
+<div class="section" id="sec-cronbach">
+  <h2 class="section-title">Cronbach's α 信度分析</h2>
+  <p class="section-subtitle">评估量表的内部一致性信度</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>当你使用了一个多题目的量表（如焦虑量表有20个题目），需要检验这些题目是否在测量同一个构念。这是论文中必须报告的指标。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开信度分析</div>
+        <div class="step-content"><span class="menu-path">分析 → 标度 → 信度分析</span>（Analyze → Scale → Reliability Analysis）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">选择题目</div>
+        <div class="step-content">将该量表的所有题目变量移入「项」框中。<strong>注意</strong>：反向题必须先完成反向计分再放入，否则会严重降低α值。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">选择模型</div>
+        <div class="step-content">确保「模型」选择的是「Alpha」（默认）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置统计量</div>
+        <div class="step-content">点击<span class="menu-path">统计</span>按钮，勾选「删除项后的标度」（Scale if Item Deleted）和「项间相关性」（Inter-Item Correlations）。这两个选项对诊断问题题目非常重要。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 信度统计</div>
+      <strong>Cronbach's Alpha</strong>：α ≥ .70 通常被认为可接受，α ≥ .80 良好，α ≥ .90 优秀。但 α &gt; .95 可能暗示题目过于冗余。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 删除项后的统计量（Item-Total Statistics）</div>
+      <strong>Corrected Item-Total Correlation（CITC）</strong>：该题目与量表总分（去除该题后）的相关。CITC &lt; .30 的题目可能不适合该量表。<br>
+      <strong>Cronbach's Alpha if Item Deleted</strong>：如果删除该题目后α值会升高，说明该题目在降低量表的内部一致性，可考虑删除。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SPLIT-HALF ==================== -->
+<div class="section" id="sec-split-half">
+  <h2 class="section-title">折半信度</h2>
+  <p class="section-subtitle">将量表题目一分为二评估信度</p>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <p>与Cronbach's α路径相同：<span class="menu-path">分析 → 标度 → 信度分析</span>，但在「模型」中选择「折半」（Split-half）。</p>
+  </div>
+  <div class="card">
+    <h3>输出解读</h3>
+    <p>输出中关注 <strong>Spearman-Brown 系数</strong>（等长/不等长版本），这是经过校正后的折半信度。Guttman Split-Half 也可参考。一般以 ≥ .70 为可接受标准。</p>
+  </div>
+</div>
+
+<!-- ==================== ICC ==================== -->
+<div class="section" id="sec-icc">
+  <h2 class="section-title">组内相关系数（ICC）</h2>
+  <p class="section-subtitle">评估评分者之间的一致性</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>当有多个评分者对同一组对象进行评分时，评估评分者之间的一致性程度。例如：两位临床心理师对同一批来访者的症状严重程度评分是否一致。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开信度分析</div>
+        <div class="step-content"><span class="menu-path">分析 → 标度 → 信度分析</span>。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">选择评分者变量</div>
+        <div class="step-content">将每个评分者的评分变量移入「项」框。每列代表一个评分者。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置统计量</div>
+        <div class="step-content">点击「统计」，勾选「组内相关系数」。在弹出的设置中选择模型：<br>
+        <strong>双向随机模型</strong>：评分者和被评对象都是随机抽取的（最常用）。<br>
+        <strong>双向混合模型</strong>：评分者是固定的，被评对象是随机的。<br>
+        类型选「一致性」（absolute agreement）或「一致」取决于你的研究需求。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出解读</h3>
+    <p>ICC值范围0-1。ICC &lt; .50 差，.50-.75 中等，.75-.90 好，&gt; .90 优秀。注意区分单一度量（single measures）和平均度量（average measures）：前者是单个评分者的信度，后者是所有评分者均值的信度。</p>
+  </div>
+</div>
+
+<!-- ==================== EFA ==================== -->
+<div class="section" id="sec-efa">
+  <h2 class="section-title">探索性因子分析（EFA）</h2>
+  <p class="section-subtitle">发现量表的潜在因子结构</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>你有一个量表（如30个题目），想知道这些题目背后有几个潜在因子（维度）。例如：一个心理健康量表的30个题目可能反映了「抑郁」「焦虑」「躯体化」三个维度。</p>
+    <h4>前提条件</h4>
+    <p>① 样本量至少为题目数的5-10倍（如20个题目需要至少100-200人）。② KMO ≥ .60。③ Bartlett球形检验显著。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开因子分析</div>
+        <div class="step-content"><span class="menu-path">分析 → 降维 → 因子</span>（Analyze → Dimension Reduction → Factor）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">选择变量</div>
+        <div class="step-content">将所有题目变量移入「变量」框。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置描述</div>
+        <div class="step-content">点击<span class="menu-path">描述</span>，勾选「KMO和Bartlett球形检验」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置提取方法</div>
+        <div class="step-content">点击<span class="menu-path">提取</span>。方法选「主轴因子法」（Principal Axis Factoring）最常用（心理学中比主成分法更合适）。提取依据选「特征值大于1」或指定因子数。勾选「碎石图」（Scree Plot）帮助判断因子数。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">设置旋转</div>
+        <div class="step-content">点击<span class="menu-path">旋转</span>。如果预期因子之间相互独立选「最大方差法（Varimax）」（正交旋转）；如果允许因子之间相关选「直接斜交（Oblimin）」（斜交旋转，心理学变量之间通常有关联，所以斜交旋转更常推荐）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">点击<span class="menu-path">选项</span>，勾选「按大小排序」和「抑制小系数」（设为 .30 或 .40），使输出更清晰。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">7</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 KMO 和 Bartlett 检验</div>
+      <strong>KMO</strong>：&gt; .90 极好, .80-.90 好, .70-.80 中等, .60-.70 勉强, &lt; .60 不适合做因子分析。<br>
+      <strong>Bartlett球形检验</strong>：Sig. &lt; .05 表示变量之间存在足够的相关性，适合因子分析。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 碎石图（Scree Plot）</div>
+      横轴是因子编号，纵轴是特征值。在曲线明显变平的「拐点」之前的因子数即为建议提取的因子数。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 旋转后的因子矩阵 / 模式矩阵</div>
+      正交旋转看「旋转成分矩阵」，斜交旋转看「模式矩阵」（Pattern Matrix）。<br>
+      每行是一个题目，每列是一个因子。数值是因子载荷，表示题目与因子的关联程度：<br>
+      · 载荷 ≥ .40 通常被认为是有意义的（可接受 .30）<br>
+      · 一个题目应该只在一个因子上有高载荷（单纯结构）<br>
+      · 如果一个题目在多个因子上载荷都高（交叉载荷），考虑删除
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 解释总方差</div>
+      各因子解释的方差比例以及累积解释方差。社会科学领域通常要求累积解释方差 ≥ 50%。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PROCESS INTRO ==================== -->
+<div class="section" id="sec-process-intro">
+  <h2 class="section-title">PROCESS 插件介绍</h2>
+  <p class="section-subtitle">Andrew Hayes 开发的中介和调节效应分析工具</p>
+  <div class="card">
+    <h3>什么是 PROCESS</h3>
+    <p>PROCESS 是一个SPSS/SAS的宏（插件），专门用于中介效应、调节效应及有调节的中介等分析。它比SPSS原生的回归功能更方便，自动进行Bootstrap检验并输出条件效应。目前最常用的版本是 PROCESS v4.x，作者是 Andrew F. Hayes。</p>
+  </div>
+  <div class="card">
+    <h3>安装步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">下载 PROCESS</div>
+        <div class="step-content">从 processmacro.org 下载最新版本的 PROCESS 文件。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">安装到 SPSS</div>
+        <div class="step-content">打开SPSS，选择 <span class="menu-path">实用程序 → 自定义对话框 → 安装自定义对话框</span>（Utilities → Custom Dialogs → Install Custom Dialog）。找到下载的 .spd 文件，点击安装。安装完成后在「分析」菜单最下方会出现 PROCESS 选项。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODERATION ==================== -->
+<div class="section" id="sec-moderation">
+  <h2 class="section-title">调节效应分析（Model 1）</h2>
+  <p class="section-subtitle">检验X对Y的影响是否因W的不同水平而不同</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>研究一个变量（W）是否调节了自变量（X）对因变量（Y）的影响。例如：社会支持（W）是否调节了压力（X）对抑郁（Y）的影响？即高社会支持的人，压力对抑郁的影响是否更小？</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开 PROCESS</div>
+        <div class="step-content"><span class="menu-path">分析 → PROCESS</span>（安装后出现在分析菜单底部）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">Y变量（因变量）：如 depression<br>X变量（自变量）：如 stress<br>W变量（调节变量）：如 social_support</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">选择模型编号</div>
+        <div class="step-content">在 Model Number 中输入 <strong>1</strong>（简单调节模型）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">勾选「Johnson-Neyman output」（可选，显示调节效应的显著性区域）。Bootstrap样本数建议设为 5000。如果调节变量是连续的，PROCESS默认在 M-1SD, M, M+1SD 三个值上探测条件效应。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 模型总结</div>
+      R², F值, p值：整个模型的拟合情况。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 回归系数表</div>
+      关注 <strong>Int_1（交互项 X×W）</strong>的 p 值。p &lt; .05 表示调节效应显著。<br>
+      X的系数是W在均值时X对Y的效应。W的系数是X在均值时W对Y的效应。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 条件效应（Conditional Effects）</div>
+      显示在W的不同水平（低/中/高）上，X对Y的效应及其显著性。例如：<br>
+      W低（M-1SD）：Effect = .45, p = .001（压力的效应显著）<br>
+      W高（M+1SD）：Effect = .12, p = .230（压力的效应不显著）<br>
+      这说明社会支持高的人，压力对抑郁的影响变弱了。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 画简单斜率图</div>
+      PROCESS不会自动画图。你可以用输出中的回归系数手动计算不同条件下的预测值，然后在Excel或SPSS中画图。也可以使用在线工具如 Jeremy Dawson 的交互效应绘图Excel模板。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MEDIATION ==================== -->
+<div class="section" id="sec-mediation">
+  <h2 class="section-title">中介效应分析（Model 4）</h2>
+  <p class="section-subtitle">检验X是否通过M间接影响Y</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>研究自变量（X）对因变量（Y）的影响是否通过中介变量（M）传递。例如：自尊（X）是否通过自我效能（M）影响学业成绩（Y）？</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开 PROCESS</div>
+        <div class="step-content"><span class="menu-path">分析 → PROCESS</span>。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">Y变量：因变量（如 achievement）<br>X变量：自变量（如 self_esteem）<br>M变量（Mediator）：中介变量（如 self_efficacy）</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">选择模型</div>
+        <div class="step-content">Model Number 输入 <strong>4</strong>（简单中介模型）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置Bootstrap</div>
+        <div class="step-content">Bootstrap样本数设为 5000（建议）。置信区间默认95%。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出结果解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 路径系数</div>
+      PROCESS输出两个回归模型：<br>
+      <strong>M的模型</strong>：X → M 的路径（a路径）。系数和p值。<br>
+      <strong>Y的模型</strong>：X → Y（c'路径，直接效应）和 M → Y（b路径）。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 直接效应和间接效应（关键结果）</div>
+      <strong>Total Effect (c)</strong>：X对Y的总效应（不加入M时）。<br>
+      <strong>Direct Effect (c')</strong>：控制M后，X对Y的直接效应。<br>
+      <strong>Indirect Effect (a×b)</strong>：中介效应 = a路径 × b路径。<br><br>
+      <strong>判断中介效应是否显著</strong>：看间接效应的 <strong>Bootstrap 95% CI</strong>。如果置信区间<strong>不包含0</strong>，中介效应显著。这是目前最推荐的方法，不需要用旧的 Sobel 检验。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 完全中介 vs 部分中介</div>
+      如果间接效应显著且直接效应（c'）不显著 → 完全中介。<br>
+      如果间接效应和直接效应都显著 → 部分中介。<br>
+      不过目前学界对这种二分法有争议，更建议报告间接效应的大小和置信区间，而非简单分类。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== DISCRIMINANT ==================== -->
+<div class="section" id="sec-discriminant">
+  <h2 class="section-title">判别分析</h2>
+  <p class="section-subtitle">根据多个预测变量将个案分入不同组</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>你有一个分组变量（如诊断类型：焦虑/抑郁/正常），想知道哪些预测变量最能区分这些组，以及能否根据预测变量把新个案分到正确的组。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开判别分析</div>
+        <div class="step-content"><span class="menu-path">分析 → 分类 → 判别</span>（Analyze → Classify → Discriminant）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">分组变量移入「分组变量」并定义范围。预测变量移入「自变量」框。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置分类</div>
+        <div class="step-content">点击「分类」，勾选「汇总表」和「留一交叉验证」（Leave-one-out），后者可以评估分类准确率的稳健性。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置统计量</div>
+        <div class="step-content">点击「统计」，勾选「均值」「Box's M」「Fisher」。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出解读</h3>
+    <p><strong>Wilks' Lambda</strong>：值越小判别效果越好，看对应的Sig.。<strong>标准化典则判别函数系数</strong>：绝对值越大的变量对判别贡献越大。<strong>分类结果表</strong>：显示原始和交叉验证的分类准确率。</p>
+  </div>
+</div>
+
+<!-- ==================== CLUSTER ==================== -->
+<div class="section" id="sec-cluster">
+  <h2 class="section-title">聚类分析</h2>
+  <p class="section-subtitle">将被试分成特征相似的子群</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>你不知道样本中有多少自然分组，想基于数据特征发现潜在的子类型。例如：根据应对方式的不同维度，将被试分成不同的应对风格类型。</p>
+  </div>
+  <div class="card">
+    <h3>两种常用方法</h3>
+    <h4>层次聚类（确定聚类数）</h4>
+    <p><span class="menu-path">分析 → 分类 → 层次聚类</span>。先用这个方法通过树状图（Dendrogram）和凝聚系数确定合适的聚类数量。</p>
+    <h4>K-Means 聚类（指定聚类数后使用）</h4>
+    <p><span class="menu-path">分析 → 分类 → K-均值聚类</span>。在「聚类数」中输入层次聚类确定的数量。勾选「保存聚类成员」可将分组结果保存为新变量。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 标准化数据</div>
+      如果变量的量纲不同（如年龄和量表得分），聚类前应先标准化（Z分数），否则量纲大的变量会主导聚类结果。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== KAPLAN-MEIER ==================== -->
+<div class="section" id="sec-kaplan-meier">
+  <h2 class="section-title">Kaplan-Meier 生存分析</h2>
+  <p class="section-subtitle">估计事件发生的时间分布</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>关注某个事件从开始到发生需要多长时间，且有些个案在观察期内事件未发生（删失数据）。心理学中例如：治疗后复发的时间、从诊断到康复的时间、从入职到离职的时间。</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开 Kaplan-Meier</div>
+        <div class="step-content"><span class="menu-path">分析 → 生存 → Kaplan-Meier</span>（Analyze → Survival → Kaplan-Meier）。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">设置变量</div>
+        <div class="step-content">「时间」框：放入表示时间的变量（如 months_to_relapse）。「状态」框：放入事件是否发生的变量（如 relapsed，编码 1=发生, 0=删失），点击<span class="menu-path">定义事件</span>输入事件发生的值（如1）。「因子」框（可选）：放入分组变量以比较不同组的生存曲线。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置比较</div>
+        <div class="step-content">如果有分组变量，点击「比较因子」，勾选「对数秩（Log Rank）」检验以比较不同组的生存曲线是否有显著差异。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置选项</div>
+        <div class="step-content">点击「选项」，勾选「生存表」和「生存图」。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>输出解读</h3>
+    <p><strong>生存曲线图</strong>：横轴是时间，纵轴是累积生存率。曲线下降越快表示事件发生越迅速。<strong>中位生存时间</strong>：50%的个案经历事件所需的时间。<strong>Log Rank检验</strong>：p &lt; .05 说明不同组的生存曲线有显著差异。</p>
+  </div>
+</div>
+
+<!-- ==================== COX REGRESSION ==================== -->
+<div class="section" id="sec-cox-reg">
+  <h2 class="section-title">Cox 回归</h2>
+  <p class="section-subtitle">考察预测变量对事件发生风险的影响</p>
+  <div class="card">
+    <h3>适用场景</h3>
+    <p>在生存分析的基础上加入预测变量。例如：哪些因素影响治疗后复发的风险？</p>
+  </div>
+  <div class="card">
+    <h3>操作步骤</h3>
+    <p><span class="menu-path">分析 → 生存 → Cox 回归</span>。时间变量、状态变量的设置同Kaplan-Meier。将预测变量移入「协变量」框。</p>
+  </div>
+  <div class="card">
+    <h3>输出解读</h3>
+    <p>关键指标是 <strong>Exp(B)（风险比/HR）</strong>：HR &gt; 1 表示该变量增加事件发生的风险；HR &lt; 1 表示降低风险。例如 HR = 1.5 表示该变量每增加1单位，事件发生的风险增加50%。解读方式类似Logistic回归的OR值。</p>
+  </div>
+</div>
+
+<!-- ==================== EFFECT SIZE ==================== -->
+<div class="section" id="sec-effect-size">
+  <h2 class="section-title">效应量计算</h2>
+  <p class="section-subtitle">统计显著性之外，衡量效应的实际大小</p>
+  <div class="card">
+    <h3>为什么需要效应量</h3>
+    <p>p值只告诉你效应是否存在（在统计意义上），但不告诉你效应有多大。样本量足够大时，极小的差异也可能「显著」。效应量独立于样本量，反映效应的实际意义。APA要求论文中报告效应量。</p>
+  </div>
+  <div class="card">
+    <h3>常用效应量及其计算</h3>
+    <div class="table-wrap"><table>
+      <tr><th>统计方法</th><th>效应量</th><th>计算方式</th><th>小/中/大</th></tr>
+      <tr><td>t 检验</td><td>Cohen's d</td><td>d = 均值差 / 合并SD</td><td>.20 / .50 / .80</td></tr>
+      <tr><td>ANOVA</td><td>η² 或 ηp²</td><td>η² = SS组间 / SS总（可从ANOVA表手算）</td><td>.01 / .06 / .14</td></tr>
+      <tr><td>相关</td><td>r 本身就是效应量</td><td>直接使用</td><td>.10 / .30 / .50</td></tr>
+      <tr><td>回归</td><td>R², f²</td><td>f² = R² / (1-R²)</td><td>.02 / .15 / .35</td></tr>
+      <tr><td>卡方</td><td>Phi, Cramer's V</td><td>SPSS可直接输出</td><td>.10 / .30 / .50</td></tr>
+      <tr><td>非参数</td><td>r</td><td>r = Z / √N</td><td>.10 / .30 / .50</td></tr>
+    </table></div>
+    <div class="box box-tip">
+      <div class="box-title">💡 SPSS的限制</div>
+      SPSS不直接输出Cohen's d（t检验的效应量）。一般线性模型中可以在「选项」里勾选「效应量估计」得到 ηp²。其他效应量需要根据公式手动计算。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== POWER ==================== -->
+<div class="section" id="sec-power">
+  <h2 class="section-title">统计检验力分析</h2>
+  <p class="section-subtitle">确定需要多大的样本量才能检测到效应</p>
+  <div class="card">
+    <h3>什么是统计检验力</h3>
+    <p>检验力（Power）= 1 - β，即当总体中确实存在效应时，检验能正确检测到它的概率。通常要求 Power ≥ .80（即80%的概率检测到真实效应）。</p>
+  </div>
+  <div class="card">
+    <h3>SPSS中的检验力分析</h3>
+    <p>SPSS的检验力分析功能有限。推荐使用专门的工具：</p>
+    <p><strong>G*Power</strong>（免费软件）：支持几乎所有常见统计方法的样本量规划和事后检验力分析。这是心理学领域最常用的检验力分析工具。</p>
+    <p>在SPSS 27及以上版本中，部分分析（如t检验、ANOVA）的输出中会包含「观察到的检验力」（Observed Power），但这个事后检验力的参考价值有限，因为它与p值高度相关。</p>
+    <div class="box box-warning">
+      <div class="box-title">⚠️ 检验力分析应在数据收集前进行</div>
+      检验力分析（样本量规划）应该在研究设计阶段就做，而不是在分析完数据后补报「观察到的检验力」。事后检验力没有额外的信息价值。
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if (sec) {
+    sec.classList.add('active');
+    sec.scrollIntoView({ behavior: 'instant', block: 'start' });
+    window.scrollTo(0, 0);
+  }
+  const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
+  if (nav) {
+    nav.classList.add('active');
+    nav.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  // Close mobile sidebar
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+function filterNav(query) {
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('.nav-item').forEach(item => {
+    if (item.dataset.section === 'welcome') return;
+    const text = item.textContent.toLowerCase();
+    const section = item.dataset.section || '';
+    if (!q || text.includes(q) || section.includes(q)) {
+      item.classList.remove('hidden');
+    } else {
+      item.classList.add('hidden');
+    }
+  });
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+</script>
+</body>
+</html>
