@@ -916,9 +916,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <strong>95% CI of the Difference</strong>：均值差的95%置信区间。如果区间不包含0，与 p &lt; .05 的结论一致。
     </div>
     <div class="box box-tip">
-      <div class="box-title">💡 APA 格式报告</div>
-      t(df) = t值, p = p值, d = Cohen's d值。例如：t(99) = 2.45, p = .016, d = 0.25。<br>
-      Cohen's d = Mean Difference / Std. Deviation，需要手动计算。SPSS不直接输出效应量。
+      <div class="box-title">💡 APA 报告范例</div>
+      <strong>格式</strong>：<em>t</em>(df) = t值, <em>p</em> = p值, <em>d</em> = Cohen's d<br>
+      <strong>示例</strong>：单样本 <em>t</em> 检验结果表明，大学生焦虑量表得分（<em>M</em> = 52.30, <em>SD</em> = 10.15）显著高于全国常模均值50，<em>t</em>(99) = 2.27, <em>p</em> = .026, <em>d</em> = 0.23，属于小效应量。<br><br>
+      Cohen's <em>d</em> = Mean Difference / Std. Deviation，需要手动计算。SPSS不直接输出效应量。
     </div>
   </div>
 </div>
@@ -984,9 +985,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <strong>95% CI</strong>：均值差的置信区间。
     </div>
     <div class="box box-tip">
-      <div class="box-title">💡 APA 格式报告</div>
-      t(df) = t值, p = p值, d = Cohen's d。例如：t(98) = -2.13, p = .036, d = 0.43。<br>
-      Cohen's d = Mean Difference / 合并标准差。合并标准差 = √[((n₁-1)s₁² + (n₂-1)s₂²) / (n₁+n₂-2)]。
+      <div class="box-title">💡 APA 报告范例</div>
+      <strong>格式</strong>：<em>t</em>(df) = t值, <em>p</em> = p值, <em>d</em> = Cohen's d<br>
+      <strong>示例</strong>：独立样本 <em>t</em> 检验结果表明，实验组的焦虑得分（<em>M</em> = 38.50, <em>SD</em> = 9.20）显著低于控制组（<em>M</em> = 42.80, <em>SD</em> = 10.05），<em>t</em>(98) = -2.13, <em>p</em> = .036, <em>d</em> = 0.43，属于小到中等效应量。<br><br>
+      Cohen's <em>d</em> = Mean Difference / 合并标准差。合并标准差 = √[((n₁-1)s₁² + (n₂-1)s₂²) / (n₁+n₂-2)]。
     </div>
   </div>
 </div>
@@ -1039,6 +1041,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <strong>df</strong>：自由度 = N - 1。<br>
       <strong>Sig. (2-tailed)</strong>：p值。p &lt; .05 说明前后测的差异显著。<br>
       <strong>95% CI</strong>：差值的置信区间，不含0则差异显著。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      配对样本 <em>t</em> 检验结果表明，干预后的抑郁得分（<em>M</em> = 15.20, <em>SD</em> = 6.30）显著低于干预前（<em>M</em> = 20.80, <em>SD</em> = 7.10），<em>t</em>(49) = -4.52, <em>p</em> &lt; .001, <em>d</em> = 0.64，表明干预产生了中等程度的效应。
     </div>
   </div>
 </div>
@@ -1104,6 +1110,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <div class="box-title">📊 事后多重比较表</div>
       显示每两组之间的均值差、标准误和p值。只看 Sig. 列：p &lt; .05 表示这两组之间存在显著差异。这个表是ANOVA后最重要的补充，告诉你具体哪些组之间有差异。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      单因素方差分析结果表明，三组在抑郁得分上存在显著差异，<em>F</em>(2, 87) = 5.63, <em>p</em> = .005, η² = .11。Tukey HSD 事后比较显示，CBT组（<em>M</em> = 12.40, <em>SD</em> = 5.30）显著低于药物组（<em>M</em> = 17.60, <em>SD</em> = 6.10, <em>p</em> = .003），但与正念组（<em>M</em> = 14.80, <em>SD</em> = 5.80）无显著差异（<em>p</em> = .210）。
+    </div>
   </div>
 </div>
 
@@ -1164,6 +1174,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
     <div class="box box-warning">
       <div class="box-title">⚠️ 交互效应的解读优先</div>
       如果交互效应显著，主效应的解释需要谨慎。此时应该看交互效应图，并做简单效应分析（在A的每个水平上分别检验B的效应），而不是单独解读主效应。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      双因素方差分析结果表明，性别的主效应不显著，<em>F</em>(1, 116) = 1.23, <em>p</em> = .270, ηp² = .01；教学方法的主效应显著，<em>F</em>(1, 116) = 8.45, <em>p</em> = .004, ηp² = .07。性别与教学方法的交互效应显著，<em>F</em>(1, 116) = 4.92, <em>p</em> = .029, ηp² = .04。简单效应分析表明，翻转课堂对女生成绩的提升效果（<em>M</em><sub>diff</sub> = 8.20）大于男生（<em>M</em><sub>diff</sub> = 2.10）。
     </div>
   </div>
 </div>
@@ -1231,6 +1245,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <div class="box-title">📊 成对比较（Pairwise Comparisons）</div>
       如果在选项中勾选了「比较主效应」，会显示每两个水平之间的差异及经Bonferroni校正后的p值。这告诉你具体哪些时间点之间有显著差异。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      Mauchly 球形性检验显著，χ²(2) = 8.35, <em>p</em> = .015，因此采用 Greenhouse-Geisser 校正（ε = .82）。重复测量方差分析表明，抑郁得分在三个时间点上存在显著差异，<em>F</em>(1.64, 80.36) = 15.23, <em>p</em> &lt; .001, ηp² = .24。Bonferroni 事后比较显示，干预后得分（<em>M</em> = 14.20）显著低于干预前（<em>M</em> = 20.50, <em>p</em> &lt; .001），追踪期得分（<em>M</em> = 15.10）与干预后无显著差异（<em>p</em> = .580）。
+    </div>
   </div>
 </div>
 
@@ -1283,6 +1301,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
     <div class="box box-tip">
       <div class="box-title">💡 交互效应显著后的跟进</div>
       需要做简单效应分析：在每个组内分别检验时间效应（用配对t检验），和在每个时间点分别检验组间差异（用独立样本t检验）。SPSS中可通过语法的 /EMMEANS 子命令实现。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      2（组别：实验组、控制组）× 3（时间：前测、后测、追踪）混合设计方差分析表明，组别 × 时间的交互效应显著，<em>F</em>(2, 96) = 7.85, <em>p</em> &lt; .001, ηp² = .14。简单效应分析显示，实验组的抑郁得分从前测到后测显著下降（<em>p</em> &lt; .001），而控制组无显著变化（<em>p</em> = .420），表明干预有效。
     </div>
   </div>
 </div>
@@ -1339,6 +1361,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <div class="box-title">📊 估计边际均值（Estimated Marginal Means）</div>
       这是控制了协变量后各组的调整均值，与原始均值不同。报告结果时应使用这些调整后的均值。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      在控制了基线抑郁水平后，协方差分析结果表明，两种疗法对干预后抑郁得分的影响存在显著差异，<em>F</em>(1, 57) = 6.82, <em>p</em> = .011, ηp² = .11。CBT组的调整均值（<em>M</em><sub>adj</sub> = 13.50, <em>SE</em> = 1.20）显著低于药物组（<em>M</em><sub>adj</sub> = 18.30, <em>SE</em> = 1.15）。基线抑郁水平是显著的协变量，<em>F</em>(1, 57) = 24.10, <em>p</em> &lt; .001, ηp² = .30。
+    </div>
   </div>
 </div>
 
@@ -1391,6 +1417,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
     <div class="box box-output">
       <div class="box-title">📊 Box's M 检验</div>
       检验方差-协方差矩阵同质性。此检验非常敏感，通常以 p &lt; .001 为标准（而非 .05）。不显著表示满足假设。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      多元方差分析结果表明，三组在因变量的线性组合上存在显著差异，Pillai's Trace = .28, <em>F</em>(6, 174) = 4.65, <em>p</em> &lt; .001, ηp² = .14。后续单变量检验显示，组别对焦虑得分的影响显著，<em>F</em>(2, 88) = 7.12, <em>p</em> = .001, ηp² = .14，但对抑郁得分和生活满意度的影响不显著。
     </div>
   </div>
 </div>
@@ -1468,6 +1498,12 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <div class="box-title">⚠️ 常见误区</div>
       相关不等于因果。即使 r 很大且显著，也不能说明 X 导致了 Y。另外，Pearson 相关只能检测线性关系，如果两个变量之间是U型或倒U型关系，Pearson r 可能接近0。建议先画散点图确认关系形态。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      <strong>报告单个相关</strong>：焦虑与抑郁之间存在显著的中等程度正相关，<em>r</em>(148) = .42, <em>p</em> &lt; .001。<br>
+      <strong>报告相关矩阵</strong>：各变量间的 Pearson 相关系数见表1。结果显示自尊与焦虑呈显著负相关（<em>r</em> = -.35, <em>p</em> &lt; .001），与生活满意度呈显著正相关（<em>r</em> = .48, <em>p</em> &lt; .001）。<br><br>
+      注意：括号中的数字是自由度 df = N - 2，不是样本量。
+    </div>
   </div>
 </div>
 
@@ -1486,6 +1522,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
   <div class="card">
     <h3>输出解读</h3>
     <p>输出格式与Pearson相同，只是系数符号为 ρ (rho) 或 rs。解释方式与Pearson相关系数一致，只是基于秩次而非原始值。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      Spearman 等级相关分析表明，教育程度与心理健康素养之间存在显著正相关，<em>r</em><sub>s</sub>(198) = .35, <em>p</em> &lt; .001。
+    </div>
   </div>
 </div>
 
@@ -1515,6 +1555,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
         <div class="step-title">点击确定</div>
         <div class="step-content">输出的偏相关系数表示在排除了控制变量影响后，两个变量之间的净相关。</div>
       </div>
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      在控制了年龄的影响后，工作压力与工作满意度之间仍然存在显著的负相关，<em>r</em>(147) = -.38, <em>p</em> &lt; .001（零阶相关 <em>r</em> = -.42）。
     </div>
   </div>
 </div>
@@ -1594,6 +1638,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <strong>t 和 Sig.</strong>：检验该系数是否显著不为零。<br>
       <strong>(Constant)</strong>：截距，X=0时Y的预测值。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      简单线性回归分析表明，自尊能显著预测生活满意度，<em>F</em>(1, 148) = 42.30, <em>p</em> &lt; .001, <em>R</em>² = .22。自尊每增加1个标准差，生活满意度增加0.47个标准差（β = .47, <em>p</em> &lt; .001）。自尊解释了生活满意度22%的变异。
+    </div>
   </div>
 </div>
 
@@ -1624,6 +1672,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <strong>VIF（方差膨胀因子）</strong>：&gt; 10 表示严重共线性。<br>
       <strong>容差（Tolerance）</strong>：= 1/VIF，&lt; 0.1 表示严重共线性。<br>
       共线性会导致回归系数不稳定，某些变量本应显著却变得不显著。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      多元线性回归分析表明，整体模型显著，<em>F</em>(3, 146) = 18.50, <em>p</em> &lt; .001, <em>R</em>² = .28, 调整 <em>R</em>² = .26。三个预测变量共同解释了心理韧性28%的变异。其中，社会支持（β = .32, <em>p</em> &lt; .001）和自尊（β = .25, <em>p</em> = .002）是显著的预测变量，而应对方式不显著（β = .08, <em>p</em> = .310）。各预测变量的 VIF 值均低于2.0，表明不存在严重的多重共线性问题。
     </div>
   </div>
 </div>
@@ -1688,6 +1740,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       模型1：R² 表示第一步变量解释的变异比例。<br>
       模型2：ΔR² 表示加入第二步变量后，额外增加了多少解释力。<strong>Sig. F Change &lt; .05</strong> 说明新增的变量组有显著的增量贡献。这通常是层次回归最核心的报告指标。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      层次回归分析中，第一步纳入人口统计变量（年龄、性别），<em>R</em>² = .06, <em>F</em>(2, 147) = 4.70, <em>p</em> = .010。第二步纳入自尊后，模型解释力显著提升，Δ<em>R</em>² = .18, Δ<em>F</em>(1, 146) = 35.20, <em>p</em> &lt; .001。在控制了人口统计变量后，自尊仍然是生活满意度的显著预测变量（β = .44, <em>p</em> &lt; .001），独立解释了18%的额外变异。
+    </div>
   </div>
 </div>
 
@@ -1751,6 +1807,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <strong>Sig.</strong>：p值。<br>
       <strong>Exp(B)（优势比/OR）</strong>：最重要的指标。OR &gt; 1 表示该变量增加1单位时，事件发生的优势增加（OR-1）×100%。OR &lt; 1 表示保护因素。例如 OR = 2.3 意味着该变量增加1单位，事件发生的可能性增加130%。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      二元 Logistic 回归分析检验了自尊和社会支持对是否患有抑郁症的预测作用。整体模型显著，χ²(2) = 24.56, <em>p</em> &lt; .001, Nagelkerke <em>R</em>² = .26。模型正确分类率为78.5%。自尊是显著的预测变量（<em>B</em> = -0.35, Wald = 8.90, <em>p</em> = .003, OR = 0.70, 95% CI [0.56, 0.88]），自尊每增加1分，患抑郁症的优势降低30%。社会支持的预测作用不显著（<em>p</em> = .120）。
+    </div>
   </div>
 </div>
 
@@ -1794,6 +1854,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <strong>平行线检验</strong>：Sig. &gt; .05 表示满足比例优势假设，可以使用有序回归。如果违反，考虑多项Logistic回归。<br>
       <strong>参数估计表</strong>：Estimate为回归系数，Sig.为显著性。解读方式类似二元Logistic，exp(B)为OR值。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      有序 Logistic 回归结果表明，整体模型显著，χ²(3) = 18.70, <em>p</em> &lt; .001。平行线检验不显著（<em>p</em> = .320），满足比例优势假设。年龄（<em>B</em> = 0.08, Wald = 6.50, <em>p</em> = .011, OR = 1.08）和病程（<em>B</em> = 0.15, Wald = 9.20, <em>p</em> = .002, OR = 1.16）是症状严重程度的显著预测变量。
+    </div>
   </div>
 </div>
 
@@ -1828,6 +1892,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
   <div class="card">
     <h3>输出结果解读</h3>
     <p>输出中的参数估计表会分多个部分，每个部分是一个类别与参照组的对比。每行的Exp(B)是相对于参照组的优势比。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      多项 Logistic 回归检验了人格特质对应对方式类型（以回避型为参照组）的预测作用。整体模型显著，χ²(6) = 32.40, <em>p</em> &lt; .001, Nagelkerke <em>R</em>² = .22。相较于回避型应对，外向性显著预测了选择问题聚焦型应对的可能性（OR = 1.85, 95% CI [1.20, 2.85], <em>p</em> = .005）。
+    </div>
   </div>
 </div>
 
@@ -1916,6 +1984,11 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <strong>Asymp. Sig. (2-tailed)</strong>：p值。p &lt; .05 表示两组分布存在显著差异。<br>
       效应量 r = Z / √N，需手动计算。r = .10小, .30中, .50大。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      Mann-Whitney U 检验结果表明，实验组的焦虑得分（Mdn = 35.00）显著低于控制组（Mdn = 42.00），<em>U</em> = 345.50, <em>z</em> = -2.68, <em>p</em> = .007, <em>r</em> = .30。<br><br>
+      注意：非参数检验报告中位数（Mdn）而非均值。
+    </div>
   </div>
 </div>
 
@@ -1930,6 +2003,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
   <div class="card">
     <h3>输出解读</h3>
     <p>输出包括正秩、负秩和并列的数量。Z值和p值（Asymp. Sig.）用于判断显著性。正秩表示后测 &gt; 前测的个案数量及其秩均值。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      Wilcoxon 符号秩检验结果表明，干预后的焦虑得分（Mdn = 28.00）显著低于干预前（Mdn = 36.00），<em>z</em> = -3.15, <em>p</em> = .002, <em>r</em> = .45。
+    </div>
   </div>
 </div>
 
@@ -1944,6 +2021,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
   <div class="card">
     <h3>输出解读</h3>
     <p>H统计量（近似卡方分布）和p值。显著后需要做两两比较：可以用多个Mann-Whitney U检验加Bonferroni校正，或使用SPSS 24及以上版本的自动成对比较功能。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      Kruskal-Wallis 检验结果表明，三组在心理韧性得分上存在显著差异，<em>H</em>(2) = 11.35, <em>p</em> = .003。事后成对比较（Bonferroni 校正）显示，高社会支持组的心理韧性（Mdn = 78.00）显著高于低社会支持组（Mdn = 62.00, <em>p</em> = .002）。
+    </div>
   </div>
 </div>
 
@@ -1958,6 +2039,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
   <div class="card">
     <h3>输出解读</h3>
     <p>输出卡方值、自由度和p值。显著后需要做事后比较：用多个Wilcoxon检验加Bonferroni校正。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      Friedman 检验结果表明，被试在三个时间点上的满意度得分存在显著差异，χ²(2) = 14.80, <em>p</em> &lt; .001。Wilcoxon 事后比较（Bonferroni 校正后 α = .017）显示，T2得分显著高于T1（<em>p</em> = .003），T3与T2无显著差异（<em>p</em> = .085）。
+    </div>
   </div>
 </div>
 
@@ -1970,6 +2055,56 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
     <p><strong>拟合优度检验（Goodness of Fit）</strong>：一个分类变量的实际分布是否符合理论分布。例如：来访者的诊断类别分布是否均匀？<br>
     <strong>独立性检验（Test of Independence）</strong>：两个分类变量是否相互独立。例如：性别与是否吸烟是否有关联？</p>
   </div>
+  <div class="card">
+    <h3>操作步骤：拟合优度检验</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">打开卡方检验对话框</div>
+        <div class="step-content"><span class="menu-path">分析 → 非参数检验 → 旧对话框 → 卡方</span>（Analyze → Nonparametric Tests → Legacy Dialogs → Chi-square）。注意：拟合优度检验不在「交叉表」中，而在「非参数检验」下。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">选择检验变量</div>
+        <div class="step-content">将要检验的分类变量移入「检验变量列表」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">设置期望频率</div>
+        <div class="step-content">在「期望值」区域选择：<br>
+          <strong>所有类别相等</strong>（默认）：检验分布是否均匀，即每个类别的期望频率相同。例如：检验四种应对方式是否被同等频率地使用。<br>
+          <strong>值</strong>：手动输入每个类别的期望比例。例如：某量表的理论分布为正常:边缘:异常 = 7:2:1，则依次输入 7、2、1 并点击「添加」。输入顺序必须与变量值的排列顺序一致。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">设置期望范围（可选）</div>
+        <div class="step-content">如果变量中有些值你不想纳入检验，可以在「期望范围」中指定需要检验的值的范围。默认是「从数据中获取」。</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-title">点击确定</div>
+        <div class="step-content">运行分析。</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>拟合优度检验输出解读</h3>
+    <div class="box box-output">
+      <div class="box-title">📊 频率表</div>
+      显示每个类别的观察频次（Observed N）和期望频次（Expected N），以及两者的差值（Residual）。差值为正表示该类别的实际人数多于期望，为负表示少于期望。
+    </div>
+    <div class="box box-output">
+      <div class="box-title">📊 检验统计量表</div>
+      <strong>卡方值（Chi-Square）</strong>：= Σ(观察值-期望值)² / 期望值。值越大说明实际分布与期望分布的偏离越严重。<br>
+      <strong>df</strong>：自由度 = 类别数 - 1。<br>
+      <strong>Asymp. Sig.</strong>：p值。p &lt; .05 表示实际分布与期望分布之间存在显著差异，即数据不符合你假设的理论分布。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      卡方拟合优度检验表明，四种应对方式的使用频率分布不均匀，χ²(3) = 12.45, <em>p</em> = .006。问题聚焦型应对（35.2%）显著多于预期，而回避型应对（15.8%）显著少于预期。
+    </div>
+  </div>
+
   <div class="card">
     <h3>操作步骤：独立性检验（更常用）</h3>
     <div class="steps">
@@ -2019,6 +2154,11 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <div class="box-title">📊 效应量</div>
       <strong>Phi (φ)</strong>：适用于2×2表。解读同Pearson r。<br>
       <strong>Cramer's V</strong>：适用于任意大小的交叉表。V = .10小, .30中, .50大。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      <strong>2×2表</strong>：卡方独立性检验表明，性别与是否吸烟之间存在显著关联，χ²(1, <em>N</em> = 200) = 6.45, <em>p</em> = .011, φ = .18。男性的吸烟比例（32.0%）显著高于女性（18.0%）。<br><br>
+      <strong>更大的表</strong>：卡方独立性检验表明，教育程度与应对方式类型之间存在显著关联，χ²(6, <em>N</em> = 300) = 18.90, <em>p</em> = .004, Cramer's <em>V</em> = .18。
     </div>
   </div>
 </div>
@@ -2072,6 +2212,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       <strong>Corrected Item-Total Correlation（CITC）</strong>：该题目与量表总分（去除该题后）的相关。CITC &lt; .30 的题目可能不适合该量表。<br>
       <strong>Cronbach's Alpha if Item Deleted</strong>：如果删除该题目后α值会升高，说明该题目在降低量表的内部一致性，可考虑删除。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      焦虑量表共20个题目，内部一致性良好（Cronbach's α = .87）。所有题目的校正项总相关（CITC）均大于 .30（范围 .35 - .68），删除任何题目后α值均未提升，表明所有题目对量表的贡献均可接受。
+    </div>
   </div>
 </div>
 
@@ -2086,6 +2230,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
   <div class="card">
     <h3>输出解读</h3>
     <p>输出中关注 <strong>Spearman-Brown 系数</strong>（等长/不等长版本），这是经过校正后的折半信度。Guttman Split-Half 也可参考。一般以 ≥ .70 为可接受标准。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      量表的折半信度良好，Spearman-Brown 校正系数为 .83（前半部分 α = .78，后半部分 α = .80），Guttman 折半系数为 .82。
+    </div>
   </div>
 </div>
 
@@ -2123,6 +2271,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
   <div class="card">
     <h3>输出解读</h3>
     <p>ICC值范围0-1。ICC &lt; .50 差，.50-.75 中等，.75-.90 好，&gt; .90 优秀。注意区分单一度量（single measures）和平均度量（average measures）：前者是单个评分者的信度，后者是所有评分者均值的信度。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      采用双向随机模型、绝对一致性类型的组内相关系数（ICC）评估两位评分者的一致性。结果表明评分者间信度良好，单一度量 ICC = .82, 95% CI [.72, .89], <em>F</em>(49, 49) = 10.25, <em>p</em> &lt; .001。
+    </div>
   </div>
 </div>
 
@@ -2198,6 +2350,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
     <div class="box box-output">
       <div class="box-title">📊 解释总方差</div>
       各因子解释的方差比例以及累积解释方差。社会科学领域通常要求累积解释方差 ≥ 50%。
+    </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      对30个题目进行探索性因子分析。KMO = .86, Bartlett 球形检验 χ²(435) = 2850.30, <em>p</em> &lt; .001，表明数据适合进行因子分析。采用主轴因子法提取因子，Oblimin 斜交旋转。根据特征值大于1和碎石图拐点，提取三个因子，累积解释方差56.3%。因子1（「抑郁」，10个题目，特征值 = 7.82，解释方差 26.1%）、因子2（「焦虑」，11个题目，特征值 = 5.40，解释方差 18.0%）、因子3（「躯体化」，9个题目，特征值 = 3.66，解释方差 12.2%）。所有题目在目标因子上的载荷均 ≥ .40，未出现明显的交叉载荷。
     </div>
   </div>
 </div>
@@ -2284,6 +2440,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       这说明社会支持高的人，压力对抑郁的影响变弱了。
     </div>
     <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      采用 PROCESS 宏 Model 1 检验社会支持对压力与抑郁关系的调节效应。整体模型显著，<em>F</em>(3, 196) = 18.45, <em>p</em> &lt; .001, <em>R</em>² = .22。压力与社会支持的交互项显著（<em>B</em> = -0.12, <em>SE</em> = 0.04, <em>t</em> = -2.85, <em>p</em> = .005），表明调节效应成立。简单斜率分析显示，在低社会支持条件下（<em>M</em> - 1<em>SD</em>），压力显著正向预测抑郁（<em>B</em> = 0.45, <em>p</em> &lt; .001）；在高社会支持条件下（<em>M</em> + 1<em>SD</em>），压力的预测作用不显著（<em>B</em> = 0.12, <em>p</em> = .230）。
+    </div>
+    <div class="box box-tip">
       <div class="box-title">💡 画简单斜率图</div>
       PROCESS不会自动画图。你可以用输出中的回归系数手动计算不同条件下的预测值，然后在Excel或SPSS中画图。也可以使用在线工具如 Jeremy Dawson 的交互效应绘图Excel模板。
     </div>
@@ -2349,6 +2509,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
       如果间接效应和直接效应都显著 → 部分中介。<br>
       不过目前学界对这种二分法有争议，更建议报告间接效应的大小和置信区间，而非简单分类。
     </div>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      采用 PROCESS 宏 Model 4（Bootstrap 样本数 = 5000）检验自我效能在自尊与学业成绩之间的中介效应。结果表明，自尊显著正向预测自我效能（<em>a</em> = 0.52, <em>SE</em> = 0.08, <em>p</em> &lt; .001），自我效能显著正向预测学业成绩（<em>b</em> = 0.38, <em>SE</em> = 0.10, <em>p</em> &lt; .001）。间接效应显著（<em>ab</em> = 0.20, <em>SE</em> = 0.06, 95% Bootstrap CI [0.09, 0.33]），置信区间不包含0。自尊对学业成绩的直接效应仍然显著（<em>c'</em> = 0.25, <em>p</em> = .008），表明自我效能起到了部分中介作用。中介效应占总效应的比例为 44.4%。
+    </div>
   </div>
 </div>
 
@@ -2388,6 +2552,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
   <div class="card">
     <h3>输出解读</h3>
     <p><strong>Wilks' Lambda</strong>：值越小判别效果越好，看对应的Sig.。<strong>标准化典则判别函数系数</strong>：绝对值越大的变量对判别贡献越大。<strong>分类结果表</strong>：显示原始和交叉验证的分类准确率。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      判别分析生成了两个显著的判别函数。函数1解释了78.5%的组间方差（Λ = .42, χ²(8) = 65.30, <em>p</em> &lt; .001），函数2解释了21.5%（Λ = .81, χ²(3) = 15.20, <em>p</em> = .002）。函数1上载荷最大的变量为焦虑得分（.72）和回避行为（.65）。交叉验证分类准确率为74.0%，高于随机分类的33.3%。
+    </div>
   </div>
 </div>
 
@@ -2448,6 +2616,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
   <div class="card">
     <h3>输出解读</h3>
     <p><strong>生存曲线图</strong>：横轴是时间，纵轴是累积生存率。曲线下降越快表示事件发生越迅速。<strong>中位生存时间</strong>：50%的个案经历事件所需的时间。<strong>Log Rank检验</strong>：p &lt; .05 说明不同组的生存曲线有显著差异。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      Kaplan-Meier 生存分析显示，CBT组的中位复发时间为18.5个月（95% CI [14.2, 22.8]），药物组为11.0个月（95% CI [8.3, 13.7]）。Log Rank 检验表明两组的生存曲线存在显著差异，χ²(1) = 7.85, <em>p</em> = .005，CBT组的无复发生存时间显著长于药物组。
+    </div>
   </div>
 </div>
 
@@ -2466,6 +2638,10 @@ tr:hover td { background: rgba(74, 111, 165, 0.03); }
   <div class="card">
     <h3>输出解读</h3>
     <p>关键指标是 <strong>Exp(B)（风险比/HR）</strong>：HR &gt; 1 表示该变量增加事件发生的风险；HR &lt; 1 表示降低风险。例如 HR = 1.5 表示该变量每增加1单位，事件发生的风险增加50%。解读方式类似Logistic回归的OR值。</p>
+    <div class="box box-tip">
+      <div class="box-title">💡 APA 报告范例</div>
+      Cox 回归分析检验了影响治疗后复发风险的因素。整体模型显著，χ²(3) = 16.80, <em>p</em> &lt; .001。基线症状严重程度（HR = 1.45, 95% CI [1.15, 1.82], <em>p</em> = .002）和合并症数量（HR = 1.30, 95% CI [1.05, 1.61], <em>p</em> = .018）是复发的显著风险因素，而社会支持水平（HR = 0.78, 95% CI [0.65, 0.93], <em>p</em> = .006）是保护因素。
+    </div>
   </div>
 </div>
 
